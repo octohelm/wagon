@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        target: [ ship, archive ]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/setup-qemu-action@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: true
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.20.x
+
+      - if: ${{ matrix.target == 'archive' || github.ref == 'refs/heads/main' }}
+        run: make wagon.${{ matrix.target }}
+        env:
+          GH_USERNAME: ${{ github.actor }}
+          GH_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ matrix.target == 'archive' && github.ref == 'refs/heads/main' }}
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          automatic_release_tag: "latest"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: |
+            .wagon/build/*.tar.gz
