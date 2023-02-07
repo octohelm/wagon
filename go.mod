@@ -10,7 +10,7 @@ replace (
 )
 
 require (
-	cuelang.org/go v0.5.0-beta.1
+	cuelang.org/go v0.6.0-0.dev
 	dagger.io/dagger v0.4.4
 	github.com/dagger/dagger v0.3.10
 	github.com/davecgh/go-spew v1.1.1
