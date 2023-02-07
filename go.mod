@@ -18,7 +18,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/innoai-tech/infra v0.0.0-20221115033600-cae53fc1af12
 	github.com/mattn/go-colorable v0.1.13
-	github.com/mattn/go-isatty v0.0.16
+	github.com/mattn/go-isatty v0.0.17
 	github.com/octohelm/courier v0.0.0-20220829042330-cf50f720e489
 	github.com/octohelm/cuemod v0.6.1
 	github.com/octohelm/gengo v0.0.0-20230203081555-b66e95cb6110
