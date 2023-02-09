@@ -18,7 +18,6 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/innoai-tech/infra v0.0.0-20221115033600-cae53fc1af12
 	github.com/mattn/go-colorable v0.1.13
-	github.com/mattn/go-isatty v0.0.16
 	github.com/octohelm/courier v0.0.0-20220829042330-cf50f720e489
 	github.com/octohelm/cuemod v0.6.1
 	github.com/octohelm/gengo v0.0.0-20230203081555-b66e95cb6110
@@ -30,7 +29,7 @@ require (
 	github.com/spf13/fsync v0.10.0
 	golang.org/x/exp v0.0.0-20230129154200-a960b3787bd2
 	golang.org/x/mod v0.7.0
-	golang.org/x/net v0.5.0
+	golang.org/x/net v0.6.0
 )
 
 require (
@@ -82,6 +81,7 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/klauspost/compress v1.15.12 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
+	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/moby/buildkit v0.11.1 // indirect
@@ -122,8 +122,8 @@ require (
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
 	golang.org/x/crypto v0.3.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
-	golang.org/x/text v0.6.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/time v0.1.0 // indirect
 	golang.org/x/tools v0.5.0 // indirect
 	google.golang.org/genproto v0.0.0-20221118155620-16455021b5e6 // indirect
