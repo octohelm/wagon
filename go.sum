@@ -284,8 +284,8 @@ github.com/d2g/dhcp4 v0.0.0-20170904100407-a1d1b6c41b1c/go.mod h1:Ct2BUK8SB0YC1S
 github.com/d2g/dhcp4client v1.0.0/go.mod h1:j0hNfjhrt2SxUOw55nL0ATM/z4Yt3t2Kd1mW34z5W5s=
 github.com/d2g/dhcp4server v0.0.0-20181031114812-7d4a0a7f59a5/go.mod h1:Eo87+Kg/IX2hfWJfwxMzLyuSZyxSoAug2nGa1G2QAi8=
 github.com/d2g/hardwareaddr v0.0.0-20190221164911-e7d9fbe030e4/go.mod h1:bMl4RjIciD2oAxI7DmWRx6gbeqrkoLqv3MV0vzNad+I=
-github.com/dagger/dagger v0.3.10 h1:MoXHmT50SMb3OArRZC6hqXR2rQ6V9rLFdn1jKguOrVM=
-github.com/dagger/dagger v0.3.10/go.mod h1:sr2hrq9IxilyNW85Dd/+vQmgvo0GUXStmLHow+zn2dM=
+github.com/dagger/dagger v0.3.12 h1:fgsN2bHAxN8wGFEr9xCPQ9ku9rF+nRGal3jkvCKR9cs=
+github.com/dagger/dagger v0.3.12/go.mod h1:3vp1czYcyc1d6dWUH9Jh86vfm+WRVvBveP3LIQ3spKE=
 github.com/dagger/graphql v0.0.0-20221102000338-24d5e47d3b72 h1:0I9Y9nsFVcP42k9eOpjYmcm+NMEIFxNuJFOHfQ8MKpo=
 github.com/dagger/graphql v0.0.0-20221102000338-24d5e47d3b72/go.mod h1:z9nYmunTkok2pE+Kdjpl1ICaqcCzlDxcVjwaFE0MJTc=
 github.com/dagger/graphql-go-tools v0.0.0-20221102001222-e68b44170936 h1:yRwbZ5iT34iXf2Kg3my9Yclbg5Mq20b+w+uqePfbUoo=
