@@ -16,9 +16,10 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.1.1
 	github.com/gobwas/glob v0.2.3
+	github.com/google/uuid v1.3.0
 	github.com/innoai-tech/infra v0.0.0-20230209064224-7873d371b0ba
 	github.com/mattn/go-colorable v0.1.13
-	github.com/moby/buildkit v0.11.1
+	github.com/moby/buildkit v0.11.2
 	github.com/octohelm/courier v0.0.0-20230110034437-4f26125f8237
 	github.com/octohelm/cuemod v0.6.2
 	github.com/octohelm/gengo v0.0.0-20230203081555-b66e95cb6110
@@ -45,7 +46,7 @@ require (
 	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
 	github.com/containerd/console v1.0.3 // indirect
-	github.com/containerd/containerd v1.6.14 // indirect
+	github.com/containerd/containerd v1.6.16-0.20230124210447-1709cfe273d9 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/containerd/fifo v1.0.0 // indirect
 	github.com/containerd/nydus-snapshotter v0.3.1 // indirect
@@ -73,7 +74,6 @@ require (
 	github.com/google/go-containerregistry v0.12.1 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
