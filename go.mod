@@ -15,7 +15,7 @@ require (
 	github.com/dagger/dagger v0.3.12
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.1.1
-	github.com/gobwas/glob v0.2.3
+	github.com/google/uuid v1.3.0
 	github.com/innoai-tech/infra v0.0.0-20230209064224-7873d371b0ba
 	github.com/mattn/go-colorable v0.1.13
 	github.com/moby/buildkit v0.11.1
@@ -26,8 +26,7 @@ require (
 	github.com/octohelm/x v0.0.0-20220811034253-019992077a5d
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/afero v1.9.3
-	github.com/spf13/fsync v0.10.0
+	github.com/spf13/afero v1.9.4
 	golang.org/x/exp v0.0.0-20230129154200-a960b3787bd2
 	golang.org/x/mod v0.8.0
 	golang.org/x/net v0.6.0
@@ -73,7 +72,6 @@ require (
 	github.com/google/go-containerregistry v0.12.1 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
