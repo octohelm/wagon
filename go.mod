@@ -26,7 +26,7 @@ require (
 	github.com/octohelm/x v0.0.0-20220811034253-019992077a5d
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/afero v1.9.3
+	github.com/spf13/afero v1.9.5
 	golang.org/x/exp v0.0.0-20230129154200-a960b3787bd2
 	golang.org/x/mod v0.8.0
 	golang.org/x/net v0.7.0
