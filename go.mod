@@ -18,7 +18,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/innoai-tech/infra v0.0.0-20230209064224-7873d371b0ba
 	github.com/mattn/go-colorable v0.1.13
-	github.com/moby/buildkit v0.11.1
+	github.com/moby/buildkit v0.11.4
 	github.com/octohelm/courier v0.0.0-20230110034437-4f26125f8237
 	github.com/octohelm/cuemod v0.6.2
 	github.com/octohelm/gengo v0.0.0-20230203081555-b66e95cb6110
