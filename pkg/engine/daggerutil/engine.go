@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/dagger/dagger/core"
+	"github.com/dagger/dagger/core/pipeline"
 	"github.com/dagger/dagger/engine"
 	"github.com/dagger/dagger/router"
 	"github.com/go-courier/logr"
@@ -40,7 +40,7 @@ func WithRunnerHost(runnerHost string) EngineOptionFunc {
 	}
 }
 
-var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.3.13"
+var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.4.0"
 
 func RunnerHost() string {
 	var runnerHost string
@@ -84,16 +84,23 @@ func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) er
 					continue
 				}
 
-				customName := &core.CustomName{}
+				customName := &pipeline.CustomName{}
 				if json.Unmarshal([]byte(v.Name), customName) == nil {
-					v.Name = customName.Pipeline.String()
+					v.Name = customName.Name
 				}
 
 				if v.ProgressGroup != nil {
-					pp := core.PipelinePath{}
+					pp := pipeline.Path{}
 					// v.ProgressGroup.Name should always use Pipeline name
 					if json.Unmarshal([]byte(v.ProgressGroup.Id), &pp) == nil {
-						v.ProgressGroup.Name = pp[0].Name
+						for _, p := range pp {
+							for _, label := range p.Labels {
+								if strings.HasPrefix(label.Name, PipelinePrefix) {
+									v.ProgressGroup.Name = label.Name
+									break
+								}
+							}
+						}
 					}
 				}
 
@@ -123,7 +130,7 @@ func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) er
 	eg.Go(func() error {
 		logOutput := forwardTo(logr.FromContext(ctx), startOpts.SessionToken)
 
-		warn, err := progressui.DisplaySolveStatus(context.Background(), "", nil, logOutput, cleanCh)
+		warn, err := progressui.DisplaySolveStatus(context.Background(), nil, logOutput, cleanCh)
 		for _, w := range warn {
 			_, _ = fmt.Fprintf(logOutput, "=> %s\n", w.Short)
 		}

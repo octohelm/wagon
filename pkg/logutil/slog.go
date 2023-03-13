@@ -57,7 +57,7 @@ func withLevelColor(level slog.Level) func(io.Writer) io.Writer {
 	return WithColor(FgWhite)
 }
 
-func (s *slogHandler) Handle(r slog.Record) error {
+func (s *slogHandler) Handle(ctx context.Context, r slog.Record) error {
 	prefix := bytes.NewBuffer(nil)
 
 	_, _ = fmt.Fprintf(WithColor(FgWhite)(prefix), "%s", r.Time.Format("15:04:05.000"))
@@ -88,12 +88,15 @@ func (s *slogHandler) Handle(r slog.Record) error {
 	for _, attr := range s.attrs {
 		if attr.Key != "name" {
 			switch attr.Value.Kind() {
-			case slog.KindLogValuer:
-				_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%v", attr.Key, attr.Value.LogValuer().LogValue().Any())
 			case slog.KindString:
 				_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%q", attr.Key, attr.Value)
 			default:
-				_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%v", attr.Key, attr.Value)
+				switch x := attr.Value.Any().(type) {
+				case []byte:
+					_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%v", attr.Key, string(x))
+				default:
+					_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%v", attr.Key, x)
+				}
 			}
 		}
 	}

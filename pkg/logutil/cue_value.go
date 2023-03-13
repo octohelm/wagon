@@ -18,5 +18,5 @@ type cueValue struct {
 func (c *cueValue) LogValue() slog.Value {
 	data, _ := json.MarshalIndent(c.v, "", "  ")
 	data, _ = cueformat.Source(data, cueformat.Simplify())
-	return slog.StringValue(string(data))
+	return slog.AnyValue(data)
 }
