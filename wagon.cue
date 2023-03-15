@@ -69,6 +69,7 @@ actions: go: golang.#Project & {
 					"git":  _
 					"wget": _
 					"curl": _
+					"make": _
 				}
 			},
 			imagetool.#Shell & {
