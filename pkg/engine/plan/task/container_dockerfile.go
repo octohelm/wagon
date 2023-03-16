@@ -71,7 +71,9 @@ func (input *Dockerfile) Do(ctx context.Context) error {
 
 		ct = ct.Build(dir, buildOpts)
 
-		if _, err := ct.ExitCode(ctx); err != nil {
+		// hack to trigger Dockerfile build logs
+		_, err := ct.Rootfs().Entries(ctx)
+		if err != nil {
 			return err
 		}
 

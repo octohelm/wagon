@@ -91,14 +91,12 @@ func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) er
 
 				if v.ProgressGroup != nil {
 					pp := pipeline.Path{}
-					// v.ProgressGroup.Name should always use Pipeline name
+					// v.ProgressGroup.Name should always use Pipeline name if exists
 					if json.Unmarshal([]byte(v.ProgressGroup.Id), &pp) == nil {
 						for _, p := range pp {
-							for _, label := range p.Labels {
-								if strings.HasPrefix(label.Name, PipelinePrefix) {
-									v.ProgressGroup.Name = label.Name
-									break
-								}
+							if strings.HasPrefix(p.Name, PipelinePrefix) {
+								v.ProgressGroup.Name = p.Name
+								break
 							}
 						}
 					}
