@@ -40,8 +40,8 @@ cloud.google.com/go/storage v1.10.0/go.mod h1:FLPqc6j+Ki4BU591ie1oL6qBQGu2Bl/tZ9
 cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3fOKtUw0Xmo=
 cuelang.org/go v0.5.0-beta.1 h1:E0suGm8KI5S7D6z17xwLxtRQzFU5GITmpRTb6j6Sn78=
 cuelang.org/go v0.5.0-beta.1/go.mod h1:okjJBHFQFer+a41sAe2SaGm1glWS8oEb6CmJvn5Zdws=
-dagger.io/dagger v0.5.0 h1:7hQnA/pFMpEkuaU2ScNWoZznTa6DbIqHnwBJwL5bBQY=
-dagger.io/dagger v0.5.0/go.mod h1:1nbGnLdIfoBV2ahbQjheI//SNGz+b5q1jqf0A+pJ+Oc=
+dagger.io/dagger v0.5.2 h1:xNMUnLWqcsb5UrvqOgJx4MJVfe7xDb50kBMXdC63Cjs=
+dagger.io/dagger v0.5.2/go.mod h1:1nbGnLdIfoBV2ahbQjheI//SNGz+b5q1jqf0A+pJ+Oc=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/99designs/gqlgen v0.17.2/go.mod h1:K5fzLKwtph+FFgh9j7nFbRUdBKvTcGnsta51fsMTn3o=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230106234847-43070de90fa1 h1:EKPd1INOIyr5hWOWhvpmQpY6tKjeG0hT1s3AMC/9fic=
@@ -287,8 +287,6 @@ github.com/in-toto/in-toto-golang v0.5.0 h1:hb8bgwr0M2hGdDsLjkJ3ZqJ8JFLL/tgYdAxF
 github.com/inconshreveable/mousetrap v1.0.1/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
 github.com/inconshreveable/mousetrap v1.1.0 h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=
 github.com/inconshreveable/mousetrap v1.1.0/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
-github.com/innoai-tech/infra v0.0.0-20230308085300-f9b64d574e75 h1:Iolh1yakb/RMTow7ia1cnj6r4J6wREXoQoODpu98g9U=
-github.com/innoai-tech/infra v0.0.0-20230308085300-f9b64d574e75/go.mod h1:Se+qC8tD5aT57MPQ6PhuMyLIz11GyxM1WZv7k88FZ3Y=
 github.com/innoai-tech/infra v0.0.0-20230314083702-2c28b3befe90 h1:lUHs4ZC4J8YnbH0QoEkyGgYc5GFpodtv/lhaw6dRjiw=
 github.com/innoai-tech/infra v0.0.0-20230314083702-2c28b3befe90/go.mod h1:Se+qC8tD5aT57MPQ6PhuMyLIz11GyxM1WZv7k88FZ3Y=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOlocH6Fxy8MmwDt+yVQYULKfN0RoTN8A=
