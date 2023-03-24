@@ -13,7 +13,7 @@ replace (
 require (
 	cuelang.org/go v0.5.0-beta.1
 	dagger.io/dagger v0.5.0
-	github.com/dagger/dagger v0.4.0
+	github.com/dagger/dagger v0.4.2
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.1.1
 	github.com/google/uuid v1.3.0
@@ -94,7 +94,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/mpvl/unique v0.0.0-20150818121801-cbe035fff7de // indirect
-	github.com/onsi/gomega v1.24.1 // indirect
+	github.com/onsi/gomega v1.24.2 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc2.0.20221005185240-3a7f492d3f1b // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/protocolbuffers/txtpbfmt v0.0.0-20230308175031-0e3c6a01a211 // indirect
