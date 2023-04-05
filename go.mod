@@ -29,7 +29,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
 	golang.org/x/exp v0.0.0-20230310171629-522b1b587ee0
-	golang.org/x/mod v0.9.0
+	golang.org/x/mod v0.10.0
 	golang.org/x/net v0.8.0
 	golang.org/x/sync v0.1.0
 )
