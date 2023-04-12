@@ -15,7 +15,7 @@ require (
 	dagger.io/dagger v0.5.0
 	github.com/dagger/dagger v0.4.0
 	github.com/davecgh/go-spew v1.1.1
-	github.com/go-courier/logr v0.1.1
+	github.com/go-courier/logr v0.2.0
 	github.com/google/uuid v1.3.0
 	github.com/innoai-tech/infra v0.0.0-20230314083702-2c28b3befe90
 	github.com/mattn/go-colorable v0.1.13
@@ -28,7 +28,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
-	golang.org/x/exp v0.0.0-20230310171629-522b1b587ee0
+	golang.org/x/exp v0.0.0-20230321023759-10a507213a29
 	golang.org/x/mod v0.9.0
 	golang.org/x/net v0.8.0
 	golang.org/x/sync v0.1.0
