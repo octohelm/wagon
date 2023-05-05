@@ -91,7 +91,12 @@ func (s *slogHandler) Handle(ctx context.Context, r slog.Record) error {
 			case slog.KindString:
 				_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%q", attr.Key, attr.Value)
 			default:
-				switch x := attr.Value.Any().(type) {
+				logValue := attr.Value.Any()
+				if valuer, ok := logValue.(slog.LogValuer); ok {
+					logValue = valuer.LogValue().Any()
+				}
+
+				switch x := logValue.(type) {
 				case []byte:
 					_, _ = fmt.Fprintf(WithColor(FgWhite)(w), " %s=%v", attr.Key, string(x))
 				default:
@@ -103,12 +108,13 @@ func (s *slogHandler) Handle(ctx context.Context, r slog.Record) error {
 
 	_, _ = fmt.Fprintln(w)
 
-	r.Attrs(func(attr slog.Attr) {
+	r.Attrs(func(attr slog.Attr) bool {
 		if attr.Key == "err" {
 			if err := attr.Value.Any().(error); err != nil {
 				_, _ = fmt.Fprintf(w, "%+v", err)
 			}
 		}
+		return true
 	})
 
 	_, _ = io.Copy(colorable.NewColorableStdout(), w)
