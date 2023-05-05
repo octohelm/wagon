@@ -109,7 +109,7 @@ github.com/containerd/continuity v0.3.0 h1:nisirsYROK15TAMVukJOUyGJjz4BNQJBVsNvA
 github.com/containerd/continuity v0.3.0/go.mod h1:wJEAIwKOm/pBZuBd0JmeTvnLquTB1Ag8espWhkykbPM=
 github.com/containerd/fifo v1.1.0 h1:4I2mbh5stb1u6ycIABlBw9zgtlK8viPI9QkQNRQEEmY=
 github.com/containerd/nydus-snapshotter v0.3.1 h1:b8WahTrPkt3XsabjG2o/leN4fw3HWZYr+qxo/Z8Mfzk=
-github.com/containerd/stargz-snapshotter v0.14.1 h1:M58AiJ+Kj50cabqYP1TpBPgUczKgn8zipmteC5FyjVs=
+github.com/containerd/stargz-snapshotter v0.14.3 h1:OTUVZoPSPs8mGgmQUE1dqw3WX/3nrsmsurW7UPLWl1U=
 github.com/containerd/stargz-snapshotter/estargz v0.14.3 h1:OqlDCK3ZVUO6C3B/5FSkDwbkEETK84kQgEeFwDC+62k=
 github.com/containerd/ttrpc v1.2.1 h1:VWv/Rzx023TBLv4WQ+9WPXlBG/s3rsRjY3i9AJ2BJdE=
 github.com/containerd/typeurl/v2 v2.1.0 h1:yNAhJvbNEANt7ck48IlEGOxP7YAp6LLpGn5jZACDNIE=
@@ -119,8 +119,8 @@ github.com/cpuguy83/go-md2man/v2 v2.0.1/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46t
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/cyphar/filepath-securejoin v0.2.3 h1:YX6ebbZCZP7VkM3scTTokDgBL2TY741X51MTk3ycuNI=
-github.com/dagger/dagger v0.4.0 h1:188hPVSpJP7MhLx1Jkqz7QPpbJ254+Q0o6tTUx8lusI=
-github.com/dagger/dagger v0.4.0/go.mod h1:2rwJ66bHBENfQI+f32wAZ5mxbnfR6N/mEd1/SZZdlII=
+github.com/dagger/dagger v0.5.1 h1:45yEXyqi1mO3XEgrQZ5WcXe/FoqYT/qfNX4RyaA2UaQ=
+github.com/dagger/dagger v0.5.1/go.mod h1:ntxPG3zp1PImUMlGaI5Zfy54F9Ik4kDCkqfc3x79TlQ=
 github.com/dagger/graphql v0.0.0-20221102000338-24d5e47d3b72 h1:0I9Y9nsFVcP42k9eOpjYmcm+NMEIFxNuJFOHfQ8MKpo=
 github.com/dagger/graphql v0.0.0-20221102000338-24d5e47d3b72/go.mod h1:z9nYmunTkok2pE+Kdjpl1ICaqcCzlDxcVjwaFE0MJTc=
 github.com/dagger/graphql-go-tools v0.0.0-20230418214324-32c52f390881 h1:sy8EAAP1LrDQzuViMhHaW7HMiFGO32PXnEiU1AdWghc=
@@ -255,7 +255,7 @@ github.com/google/pprof v0.0.0-20200708004538-1a94d8640e99/go.mod h1:ZgVRPoUq/hf
 github.com/google/pprof v0.0.0-20201023163331-3e6fc7fc9c4c/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
 github.com/google/pprof v0.0.0-20201203190320-1bf35d6f28c2/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
 github.com/google/pprof v0.0.0-20201218002935-b9804c9f04c2/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
-github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 h1:yAJXTCF9TqKcTiHJAE8dj7HMvPfh66eeA2JYW7eFpSE=
+github.com/google/pprof v0.0.0-20230406165453-00490a63f317 h1:hFhpt7CTmR3DX+b4R19ydQFtofxT0Sv3QsKNMVQYTMQ=
 github.com/google/renameio v0.1.0/go.mod h1:KWCgfxg9yswjAJkECMjeO8J8rahYeXnNhOm40UhjYkI=
 github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 h1:El6M4kTTCOh6aBiKaUGG7oYTSPP8MxqL4YI3kZKwcP4=
 github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510/go.mod h1:pupxD2MaaD3pAXIBCelhxNneeOaAeabZDe5s4K6zSpQ=
