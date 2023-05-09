@@ -81,10 +81,16 @@ func (input *Dockerfile) Do(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
+		platform, err := ct.Platform(ctx)
+		if err != nil {
+			return err
+		}
+
 		if err := input.Config.Resolve(ctx, c, id); err != nil {
 			return err
 		}
-		input.Platform = input.Config.Platform
+
+		input.Platform = string(platform)
 		return input.Output.SetDirectoryIDBy(ctx, ct.Rootfs())
 	})
 }

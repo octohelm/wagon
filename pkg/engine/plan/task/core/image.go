@@ -46,9 +46,6 @@ type ImageConfig struct {
 	Entrypoint []string          `json:"entrypoint"`
 	Cmd        []string          `json:"cmd"`
 	User       string            `json:"user" default:""`
-
-	// just for sharing
-	Platform string `json:"-"`
 }
 
 func (p ImageConfig) ApplyTo(c *dagger.Container) *dagger.Container {
@@ -120,7 +117,6 @@ query {
     container(id: %q) {
 		id
 		entrypoint
-		platform
 		defaultArgs
 		workdir
 		user
@@ -156,8 +152,6 @@ query {
 	for _, e := range ret.Container.Labels {
 		p.Labels[e.Name] = e.Value
 	}
-
-	p.Platform = ret.Container.Platform
 
 	return nil
 }

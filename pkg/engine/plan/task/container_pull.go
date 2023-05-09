@@ -44,10 +44,16 @@ func (input *Pull) Do(ctx context.Context) error {
 			return errors.Wrapf(err, "Pull %s failed.", input.Source)
 		}
 
+		platform, err := ct.Platform(ctx)
+		if err != nil {
+			return errors.Wrapf(err, "Resolve Platform %s failed.", input.Source)
+		}
+
 		if err := input.Config.Resolve(ctx, c, id); err != nil {
 			return err
 		}
-		input.Platform = input.Config.Platform
+
+		input.Platform = string(platform)
 		return input.Output.SetDirectoryIDBy(ctx, ct.Rootfs())
 	})
 }
