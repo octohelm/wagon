@@ -15,7 +15,7 @@ replace (
 
 require (
 	cuelang.org/go v0.5.0-beta.1
-	dagger.io/dagger v0.6.1
+	dagger.io/dagger v0.6.3
 	github.com/dagger/dagger v0.5.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.2.0
