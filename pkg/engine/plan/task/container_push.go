@@ -91,6 +91,12 @@ func (input *PushImage) Do(ctx context.Context) error {
 			ct = a.ApplyTo(ctx, ct, input.Dest)
 		}
 
+		// prepare before push
+		_, err := ctr.Rootfs().Entries(ctx)
+		if err != nil {
+			return err
+		}
+
 		ret, err := ct.Publish(ctx, input.Dest, dagger.ContainerPublishOpts{
 			PlatformVariants: []*dagger.Container{
 				ctr,
@@ -122,7 +128,7 @@ type PushManifests struct {
 
 func (input *PushManifests) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		cts := make([]*dagger.Container, 0)
+		cts := make([]*dagger.Container, 0, len(input.Inputs))
 
 		for platform := range input.Inputs {
 			img := input.Inputs[platform]
@@ -134,9 +140,16 @@ func (input *PushManifests) Do(ctx context.Context) error {
 			dir := c.Directory(dagger.DirectoryOpts{
 				ID: id,
 			})
-			cts = append(cts, img.Config.ApplyTo(c.Container(dagger.ContainerOpts{
-				Platform: dagger.Platform(platform),
-			}).WithRootfs(dir)))
+
+			ctr := img.Config.ApplyTo(c.Container(dagger.ContainerOpts{Platform: dagger.Platform(platform)}).WithRootfs(dir))
+
+			// prepare before push
+			_, err := ctr.Rootfs().Entries(ctx)
+			if err != nil {
+				return err
+			}
+
+			cts = append(cts, ctr)
 		}
 
 		ct := plan.RegistryAuthStoreContext.From(ctx).ApplyTo(ctx, c.Container())

@@ -46,7 +46,7 @@ func (t *taskRunner) Run(ctx context.Context) (e error) {
 		Debug("computed values")
 
 	started := time.Now()
-	defer logr.FromContext(ctx).WithValues("duration", time.Now().Sub(started)).Info("computed")
+	defer logr.FromContext(ctx).WithValues("cost", time.Now().Sub(started)).Info("computed")
 
 	if err := inputStepRunner.Do(ctx); err != nil {
 		return errors.Wrap(err, "do failed")

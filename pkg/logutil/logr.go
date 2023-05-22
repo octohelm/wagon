@@ -41,11 +41,19 @@ func (d *logger) End() {
 }
 
 func (d *logger) Debug(format string, args ...any) {
-	d.slogr.Debug(fmt.Sprintf(format, args...))
+	if len(args) > 0 {
+		d.slogr.Debug(fmt.Sprintf(format, args...))
+	} else {
+		d.slogr.Debug(format)
+	}
 }
 
 func (d *logger) Info(format string, args ...any) {
-	d.slogr.Info(fmt.Sprintf(format, args...))
+	if len(args) > 0 {
+		d.slogr.Info(fmt.Sprintf(format, args...))
+	} else {
+		d.slogr.Info(format)
+	}
 }
 
 func (d *logger) Warn(err error) {
@@ -57,7 +65,7 @@ func (d *logger) Error(err error) {
 }
 
 func (d *logger) Trace(format string, args ...any) {
-	d.Debug(fmt.Sprintf(format, args...))
+	d.Debug(format, args...)
 }
 
 func (d *logger) Fatal(err error) {

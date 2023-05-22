@@ -2,9 +2,7 @@ package daggerutil
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
 	"net"
 	"net/http"
 	"os"
@@ -14,14 +12,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/dagger/dagger/core/pipeline"
 	"github.com/dagger/dagger/engine"
 	"github.com/dagger/dagger/router"
 	"github.com/go-courier/logr"
 	"github.com/google/uuid"
-	"github.com/moby/buildkit/client"
-	"github.com/moby/buildkit/util/progress/progressui"
 	"github.com/pkg/errors"
+	"github.com/vito/progrock"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
 )
@@ -40,7 +36,7 @@ func WithRunnerHost(runnerHost string) EngineOptionFunc {
 	}
 }
 
-var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.5.1"
+var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.5.3"
 
 func RunnerHost() string {
 	var runnerHost string
@@ -62,78 +58,17 @@ func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) er
 		opt.RunnerHost = RunnerHost()
 	}
 
-	startOpts := &engine.Config{
-		RunnerHost:        opt.RunnerHost,
-		RawBuildkitStatus: make(chan *client.SolveStatus),
+	token := uuid.Must(uuid.NewRandom()).String()
+
+	p := printerFor(logr.FromContext(ctx), token)
+
+	startOpts := engine.Config{
+		RunnerHost:     opt.RunnerHost,
+		SessionToken:   token,
+		ProgrockWriter: p,
 	}
 
-	startOpts.SessionToken = uuid.Must(uuid.NewRandom()).String()
-
 	eg := &errgroup.Group{}
-
-	cleanCh := make(chan *client.SolveStatus)
-	eg.Go(func() error {
-		defer close(cleanCh)
-
-		for ev := range startOpts.RawBuildkitStatus {
-			shouldIgnore := false
-
-			for _, v := range ev.Vertexes {
-				if v.Started == nil && v.Completed == nil {
-					shouldIgnore = true
-					continue
-				}
-
-				customName := &pipeline.CustomName{}
-				if json.Unmarshal([]byte(v.Name), customName) == nil {
-					v.Name = customName.Name
-				}
-
-				if v.ProgressGroup != nil {
-					pp := pipeline.Path{}
-					// v.ProgressGroup.Name should always use Pipeline name if exists
-					if json.Unmarshal([]byte(v.ProgressGroup.Id), &pp) == nil {
-						for _, p := range pp {
-							if strings.HasPrefix(p.Name, PipelinePrefix) {
-								v.ProgressGroup.Name = p.Name
-								break
-							}
-						}
-					}
-				}
-
-				if v.Completed == nil && v.Started != nil {
-					// added to statuses for logging
-					if strings.HasPrefix(v.Name, "exec") {
-						ev.Statuses = append(ev.Statuses, &client.VertexStatus{
-							ID:        v.Name,
-							Vertex:    v.Digest,
-							Started:   v.Started,
-							Completed: v.Completed,
-						})
-					}
-				}
-			}
-
-			if shouldIgnore {
-				continue
-			}
-
-			cleanCh <- ev
-		}
-
-		return nil
-	})
-
-	eg.Go(func() error {
-		logOutput := forwardTo(logr.FromContext(ctx), startOpts.SessionToken)
-
-		warn, err := progressui.DisplaySolveStatus(context.Background(), nil, logOutput, cleanCh)
-		for _, w := range warn {
-			_, _ = fmt.Fprintf(logOutput, "=> %s\n", w.Short)
-		}
-		return err
-	})
 
 	l, err := net.Listen("tcp", ":0")
 	if err != nil {
@@ -186,7 +121,7 @@ func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) er
 	return nil
 }
 
-func forwardTo(l logr.Logger, scope string) io.Writer {
+func printerFor(l logr.Logger, scope string) progrock.Writer {
 	return &printer{
 		l:     l,
 		scope: PipelinePrefix + scope,
@@ -194,41 +129,138 @@ func forwardTo(l logr.Logger, scope string) io.Writer {
 }
 
 type printer struct {
-	pipelineNames sync.Map
-	l             logr.Logger
-	scope         string
+	l              logr.Logger
+	scope          string
+	vertexGroups   sync.Map
+	vertexNames    sync.Map
+	groupRelations sync.Map
 }
 
-func (o *printer) Write(p []byte) (n int, err error) {
-	line := string(bytes.TrimSpace(p))
-	idAndMsg := strings.SplitN(line, " ", 2)
-	id := idAndMsg[0]
+func (p *printer) Close() error {
+	return nil
+}
 
-	if len(idAndMsg) == 2 {
-		msg := idAndMsg[1]
-
-		if strings.HasPrefix(msg, o.scope) {
-			parts := strings.Split(msg[len(o.scope):], " / ")
-
-			o.pipelineNames.Store(id, parts[0])
-
-			if len(parts) == 2 {
-				msg = strings.TrimSpace(parts[1])
-			} else {
-				msg = ""
-			}
-		} else {
-			if strings.Contains(msg, "export") {
-				o.pipelineNames.Store(id, "Exporting")
-			}
-		}
-
-		if msg != "" {
-			if name, ok := o.pipelineNames.Load(id); ok {
-				o.l.WithValues("name", name).Info(fmt.Sprintf("%s %s", id, msg))
+func (p *printer) WriteStatus(update *progrock.StatusUpdate) error {
+	for _, m := range update.Memberships {
+		for _, vid := range m.Vertexes {
+			if _, ok := p.vertexGroups.Load(vid); !ok {
+				p.vertexGroups.Store(vid, m.Group)
 			}
 		}
 	}
 
-	return len(p), nil
+	for _, g := range update.Groups {
+		if parent := g.Parent; parent != nil {
+			p.groupRelations.Store(g.Id, *parent)
+		}
+	}
+
+	vertexIDs := map[string]bool{}
+
+	for _, v := range update.Vertexes {
+		if v.Internal || v.Canceled {
+			continue
+		}
+
+		if v.Started == nil && v.Completed == nil {
+			continue
+		}
+
+		if vertexIDs[v.Id] {
+			continue
+		}
+
+		vertexIDs[v.Id] = true
+
+		l := p.loggerFor(v.Id)
+
+		if v.Cached {
+			if v.Completed != nil {
+				l.WithValues("cost", v.Duration(), "state", "CACHED").Info(v.Name)
+			}
+		} else if v.Completed != nil {
+			if v.Error != nil {
+				l.WithValues("cost", v.Duration(), "state", "DONE").Info(v.Name)
+			}
+		} else {
+			l.Info(v.Name)
+			p.vertexNames.Store(v.Id, v.Name)
+		}
+	}
+
+	for _, t := range update.Tasks {
+		if t.Started == nil && t.Completed == nil {
+			continue
+		}
+
+		if t.Completed != nil {
+			name := t.Name
+			if strings.HasPrefix(name, "sha256:") {
+				if n, ok := p.vertexNames.Load(t.Vertex); ok {
+					name = n.(string)
+				}
+			}
+
+			l := p.loggerFor(t.Vertex).WithValues("cost", t.Duration())
+
+			if t.Total > 0 {
+				l.Info(fmt.Sprintf("%s %s/%s", name, FileSize(t.Current), FileSize(t.Total)))
+			} else {
+				l.Info(fmt.Sprintf("%s %s", name, FileSize(t.Current)))
+			}
+		}
+	}
+
+	for _, log := range update.Logs {
+		p.loggerFor(log.Vertex).Info(string(bytes.TrimSpace(log.Data)))
+	}
+
+	return nil
+}
+
+func (p *printer) resolveGroupID(vid string) (string, bool) {
+	if g, ok := p.vertexGroups.Load(vid); ok {
+		groupID := g.(string)
+
+		for {
+			if strings.HasPrefix(groupID, PipelinePrefix) {
+				return groupID, ok
+			}
+			if parentGroupID, ok := p.groupRelations.Load(groupID); ok {
+				return parentGroupID.(string), ok
+			} else {
+				break
+			}
+		}
+	}
+	return "", false
+}
+
+func (p *printer) loggerFor(vid string) logr.Logger {
+	l := p.l
+
+	if groupID, ok := p.resolveGroupID(vid); ok {
+		if strings.HasPrefix(groupID, PipelinePrefix) {
+			groupID = groupID[len(p.scope):]
+		}
+		l = p.l.WithValues("name", strings.Split(groupID, "@")[0])
+	}
+
+	return l
+}
+
+type FileSize int64
+
+func (f FileSize) String() string {
+	b := int64(f)
+	const unit = 1024
+	if b < unit {
+		return fmt.Sprintf("%d B", b)
+	}
+	div, exp := int64(unit), 0
+	for n := b / unit; n >= unit; n /= unit {
+		div *= unit
+		exp++
+	}
+	return fmt.Sprintf("%.1f%ciB", float64(b)/float64(div), "KMGTPE"[exp])
 }
