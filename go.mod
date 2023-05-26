@@ -30,7 +30,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
-	github.com/vito/progrock v0.3.0
+	github.com/vito/progrock v0.4.0
 	golang.org/x/exp v0.0.0-20230519143937-03e91628a987
 	golang.org/x/mod v0.10.0
 	golang.org/x/net v0.10.0
