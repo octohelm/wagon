@@ -15,7 +15,7 @@ type Pipeline struct {
 
 func (c *Pipeline) SetDefaults() {
 	if c.Plan == "" {
-		c.Plan = "./dagger.cue"
+		c.Plan = "./wagon.cue"
 	}
 }
 
