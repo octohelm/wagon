@@ -1,4 +1,4 @@
-WAGON = CGO_ENABLED=0 go run ./cmd/wagon -p wagon.cue
+WAGON = CGO_ENABLED=0 go run ./cmd/wagon
 
 DEBUG = 0
 ifeq ($(DEBUG),1)
@@ -29,6 +29,9 @@ gen:
 lint:
 	goimports -w -l ./pkg
 	goimports -w -l ./cmd
+
+update:
+	go get -u ./pkg/...
 
 up:
 	cd ./.wagon/engine && nerdctl compose up
