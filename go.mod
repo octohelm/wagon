@@ -3,7 +3,6 @@ module github.com/octohelm/wagon
 go 1.20
 
 replace (
-
 	// follow from dagger
 	cloud.google.com/go => cloud.google.com/go v0.100.2
 	cuelang.org/go => cuelang.org/go v0.5.0-beta.1
@@ -22,7 +21,7 @@ replace (
 
 require (
 	cuelang.org/go v0.5.0-beta.1
-	dagger.io/dagger v0.7.0
+	dagger.io/dagger v0.7.1
 	github.com/dagger/dagger v0.6.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.2.0
@@ -45,6 +44,7 @@ require (
 )
 
 require (
+	github.com/99designs/gqlgen v0.17.2 // indirect
 	github.com/Khan/genqlient v0.5.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230217124315-7d5c6f04bbb8 // indirect
