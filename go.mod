@@ -3,7 +3,6 @@ module github.com/octohelm/wagon
 go 1.20
 
 replace (
-
 	// follow from dagger
 	cloud.google.com/go => cloud.google.com/go v0.100.2
 	cuelang.org/go => cuelang.org/go v0.5.0-beta.1
@@ -37,7 +36,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
-	github.com/vito/progrock v0.5.2
+	github.com/vito/progrock v0.5.3
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 	golang.org/x/mod v0.10.0
 	golang.org/x/net v0.10.0
