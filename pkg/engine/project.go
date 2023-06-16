@@ -29,8 +29,9 @@ type Project interface {
 }
 
 type option struct {
-	entryFile string
-	output    string
+	entryFile       string
+	output          string
+	imagePullPrefix string
 }
 
 type OptFunc = func(o *option)

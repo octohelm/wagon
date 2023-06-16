@@ -36,7 +36,7 @@ func WithRunnerHost(runnerHost string) EngineOptionFunc {
 	}
 }
 
-var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.6.1"
+var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.6.2"
 
 func RunnerHost() string {
 	var runnerHost string

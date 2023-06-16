@@ -19,6 +19,8 @@ func (v Pipeline) RuntimeDoc(names ...string) ([]string, bool) {
 		switch names[0] {
 		case "Action":
 			return []string{}, true
+		case "ImagePullPrefix":
+			return []string{}, true
 		case "Plan":
 			return []string{}, true
 		case "Output":

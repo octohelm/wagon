@@ -37,7 +37,7 @@ func (input *Pull) Do(ctx context.Context) error {
 			ct = a.ApplyTo(ctx, ct, input.Source)
 		}
 
-		ct = ct.From(input.Source)
+		ct = ct.From(core.ImagePullPrefixierFromContext(ctx).ImagePullPrefix(input.Source))
 
 		id, err := ct.ID(ctx)
 		if err != nil {

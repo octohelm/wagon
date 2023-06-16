@@ -3,11 +3,37 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	"golang.org/x/net/context"
 	"os"
 	"strconv"
 
 	"dagger.io/dagger"
 )
+
+type ImagePullPrefixier interface {
+	ImagePullPrefix(name string) string
+}
+
+type imagePullPrefixierContext struct {
+}
+
+func ContextWithImagePullPrefixier(ctx context.Context, p ImagePullPrefixier) context.Context {
+	return context.WithValue(ctx, imagePullPrefixierContext{}, p)
+}
+
+func ImagePullPrefixierFromContext(ctx context.Context) ImagePullPrefixier {
+	if f, ok := ctx.Value(imagePullPrefixierContext{}).(ImagePullPrefixier); ok {
+		return f
+	}
+	return &imagePullPrefixierDiscord{}
+}
+
+type imagePullPrefixierDiscord struct {
+}
+
+func (imagePullPrefixierDiscord) ImagePullPrefix(name string) string {
+	return name
+}
 
 func DefaultPlatform(platform string) dagger.Platform {
 	if platform == "" {

@@ -55,3 +55,7 @@ func (v Directory) RuntimeDoc(names ...string) ([]string, bool) {
 	}
 	return []string{}, true
 }
+
+func (FileSize) RuntimeDoc(names ...string) ([]string, bool) {
+	return []string{}, true
+}

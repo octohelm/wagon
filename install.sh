@@ -46,4 +46,4 @@ chmod 755 /tmp/wagon/wagon
 
 mkdir -p -- "${INSTALL_PATH}"
 mv -f /tmp/wagon/wagon "${INSTALL_PATH}/wagon"
-echo "$(wagon version) is now executable in ${INSTALL_PATH}"
+echo "$(wagon --version) is now executable in ${INSTALL_PATH}"
