@@ -89,6 +89,21 @@ func (v ClientNetwork) RuntimeDoc(names ...string) ([]string, bool) {
 	return []string{}, true
 }
 
+func (v CloneWithoutNull) RuntimeDoc(names ...string) ([]string, bool) {
+	if len(names) > 0 {
+		switch names[0] {
+		case "Input":
+			return []string{}, true
+		case "Output":
+			return []string{}, true
+
+		}
+
+		return nil, false
+	}
+	return []string{}, true
+}
+
 func (v Copy) RuntimeDoc(names ...string) ([]string, bool) {
 	if len(names) > 0 {
 		switch names[0] {

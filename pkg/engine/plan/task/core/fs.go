@@ -23,9 +23,15 @@ type FS struct {
 }
 
 func (fs *FS) SetDirectoryIDBy(ctx context.Context, dir *dagger.Directory) error {
+	// Trigger build for each step
+	// which will make log in correct scope
+	if _, err := dir.Entries(ctx); err != nil {
+		return errors.Wrap(err, "resolve entries failed")
+	}
+
 	id, err := dir.ID(ctx)
 	if err != nil {
-		return errors.Wrap(err, "get dir id failed")
+		return errors.Wrap(err, "resolve dir id failed")
 	}
 	fs.SetDirectoryID(id)
 	return nil

@@ -3,6 +3,7 @@ package logutil
 import (
 	"github.com/go-courier/logr"
 	"github.com/innoai-tech/infra/pkg/configuration"
+	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"golang.org/x/exp/slog"
 	"golang.org/x/net/context"
 )
@@ -41,5 +42,6 @@ func (o *Logger) InjectContext(ctx context.Context) context.Context {
 	return configuration.InjectContext(
 		ctx,
 		configuration.InjectContextFunc(logr.WithLogger, o.logger),
+		configuration.InjectContextFunc(daggerutil.ContextWithInternalDebug, o.LogLevel == DebugLevel),
 	)
 }

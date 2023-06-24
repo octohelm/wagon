@@ -5,6 +5,8 @@ ifeq ($(DEBUG),1)
 	WAGON := $(WAGON) --log-level=debug
 endif
 
+export BUILDKIT_HOST =
+
 wagon.ship:
 	$(WAGON) do go ship pushx
 

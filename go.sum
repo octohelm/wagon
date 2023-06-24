@@ -396,8 +396,8 @@ github.com/vbatts/tar-split v0.11.3 h1:hLFqsOLQ1SsppQNTMpkpPXClLDfC2A3Zgy9OUU+RV
 github.com/vbatts/tar-split v0.11.3/go.mod h1:9QlHN18E+fEH7RdG+QAJJcuya3rqT7eXSTY7wGrAokY=
 github.com/vektah/gqlparser/v2 v2.5.3 h1:goUwv4+blhtwR3GwefadPVI4ubYc/WZSypljWMQa6IE=
 github.com/vektah/gqlparser/v2 v2.5.3/go.mod h1:z8xXUff237NntSuH8mLFijZ+1tjV1swDbpDqjJmk6ME=
-github.com/vito/progrock v0.6.0 h1:I/4Vx6I0pF8fB95y8gnVGXn7OFER6r3YTt9/9cR3k58=
-github.com/vito/progrock v0.6.0/go.mod h1:QFdL7VkC8bDQiuKp6TZxifMbs6es0dZL/vyn1KqzURY=
+github.com/vito/progrock v0.7.0 h1:NJ6pOV6igmgFAi23JhEw9nwRGNtid/sqgMJ37hlknbo=
+github.com/vito/progrock v0.7.0/go.mod h1:UVw9s+ns8pVpHBIoLMfE8bMzFxXefnSejksNUiqSBvw=
 github.com/vito/vt100 v0.1.2 h1:gRhKJ/shHTRfMHg+Wc5ExHJzV6HHZqyQIAL52x4EUmA=
 github.com/vito/vt100 v0.1.2/go.mod h1:ByMBsZZEP04RrkT9q/UxvZOjECM8Xc/MRLZ7GLrAUXs=
 github.com/xanzy/ssh-agent v0.3.3 h1:+/15pJfg/RsTxqYcX6fHqOXZwwMP+2VyYWJeWM2qQFM=

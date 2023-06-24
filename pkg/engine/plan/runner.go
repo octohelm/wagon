@@ -17,10 +17,8 @@ import (
 	"cuelang.org/go/cue/ast"
 	cueerrors "cuelang.org/go/cue/errors"
 	"cuelang.org/go/tools/flow"
-	"github.com/go-courier/logr"
 	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"github.com/octohelm/wagon/pkg/fsutil"
-	"github.com/octohelm/wagon/pkg/logutil"
 	"github.com/pkg/errors"
 )
 
@@ -175,8 +173,6 @@ func (r *Runner) prepareTasks(ctx context.Context, tasks []*flow.Task) error {
 }
 
 func (r *Runner) runTaskFunc(taskRunnerFactory TaskRunnerFactory, shouldRun func(p cue.Path) bool) flow.TaskFunc {
-	sessionToken := os.Getenv("DAGGER_SESSION_TOKEN")
-
 	return func(cueValue cue.Value) (flow.Runner, error) {
 		p := cueValue.Path()
 		if !(shouldRun(cueValue.Path())) {
@@ -195,19 +191,9 @@ func (r *Runner) runTaskFunc(taskRunnerFactory TaskRunnerFactory, shouldRun func
 
 			c := t.Context()
 
-			c = logr.WithLogger(
-				c,
-				logr.FromContext(c).WithValues("name", displayName),
-			)
-
 			c = daggerutil.ClientContext.Inject(
 				c,
-				daggerutil.ClientContext.From(c).
-					Pipeline(
-						fmt.Sprintf("%s%s%s",
-							daggerutil.PipelinePrefix, sessionToken, displayName,
-						),
-					),
+				daggerutil.ClientContext.From(c).Pipeline(displayName),
 			)
 
 			if err := tr.Run(c); err != nil {
@@ -242,8 +228,6 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 	}
 
 	return daggerutil.ConnectDo(ctx, func(ctx context.Context) error {
-		logr.FromContext(ctx).WithValues("name", "Pipeline").Debug("starting...")
-
 		preparedCueValue, err := r.exec(ctx, cueValue, func(p cue.Path) bool {
 			_, ok := r.setups[p.String()]
 			return ok
@@ -262,21 +246,8 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 			return err
 		}
 
-		l := logr.FromContext(ctx)
-
-		if o := ret.LookupPath(r.target).LookupPath(cue.ParsePath("result")); o.Exists() {
-			out := o.Value()
-			l.WithValues("result", logutil.CueValue(out)).Info("done")
-
-			return nil
-		}
-
 		if o := ret.LookupPath(r.target).LookupPath(cue.ParsePath("output")); o.Exists() {
-			l.WithValues("output", logutil.CueValue(o.Value())).Info("done")
-
 			if r.output != "" {
-				l = l.WithValues("name", "Export", "dest", r.output)
-
 				for i := range r.exporters {
 					e := r.exporters[i]
 
@@ -288,7 +259,7 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 						if err != nil {
 							return err
 						}
-						return e.ExportTo(logr.WithLogger(ctx, l), dest)
+						return e.ExportTo(ctx, dest)
 					}
 				}
 			}

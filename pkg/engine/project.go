@@ -4,7 +4,6 @@ import (
 	"cuelang.org/go/cue/build"
 	"cuelang.org/go/cue/cuecontext"
 	cueload "cuelang.org/go/cue/load"
-	"github.com/go-courier/logr"
 	"github.com/octohelm/cuemod/pkg/cuemod"
 	"github.com/octohelm/wagon/cuepkg"
 	"github.com/octohelm/wagon/pkg/engine/plan"
@@ -85,8 +84,6 @@ type project struct {
 }
 
 func (c *project) Run(ctx context.Context, action ...string) error {
-	logr.FromContext(ctx).WithValues("name", "Project").Debug("loading...")
-
 	val := cuecontext.New().BuildInstance(c.instance)
 	if err := val.Err(); err != nil {
 		return err
@@ -95,8 +92,6 @@ func (c *project) Run(ctx context.Context, action ...string) error {
 	cueValue := plan.WrapValue(val)
 	workdir := plan.NewWorkdir(c.sourceRoot, "")
 	registryAuthStore := plan.NewRegistryAuthStore()
-
-	logr.FromContext(ctx).WithValues("name", "Project").Debug("starting...")
 
 	runner := plan.NewRunner(cueValue, c.opt.output, &core.FS{}, &core.Image{})
 
