@@ -21,7 +21,7 @@ replace (
 
 require (
 	cuelang.org/go v0.5.0-beta.1
-	dagger.io/dagger v0.7.2
+	dagger.io/dagger v0.7.3
 	github.com/dagger/dagger v0.6.2
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.2.0
@@ -136,7 +136,7 @@ require (
 	github.com/tonistiigi/units v0.0.0-20180711220420-6950e57a87ea // indirect
 	github.com/tonistiigi/vt100 v0.0.0-20210615222946-8066bb97264f // indirect
 	github.com/vbatts/tar-split v0.11.3 // indirect
-	github.com/vektah/gqlparser/v2 v2.5.3 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.6 // indirect
 	github.com/vito/vt100 v0.1.2 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
