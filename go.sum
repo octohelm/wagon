@@ -89,8 +89,8 @@ github.com/containerd/typeurl/v2 v2.1.1/go.mod h1:IDp2JFvbwZ31H8dQbEIY7sDl2L3o3H
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/cyphar/filepath-securejoin v0.2.3 h1:YX6ebbZCZP7VkM3scTTokDgBL2TY741X51MTk3ycuNI=
-github.com/dagger/dagger v0.6.2 h1:tbhTvTQPdhtarsdAxsTvdGXnYyQbFEoqeJpzaxpss+M=
-github.com/dagger/dagger v0.6.2/go.mod h1:zbnjOWv/mX9IpOmw1m+0ritnjrYL+nHupXTFPgcsyis=
+github.com/dagger/dagger v0.6.3 h1:YVS7eQUhvNOfL+mb+1qwSACdTeFk0DLrdCLxrfUkdIs=
+github.com/dagger/dagger v0.6.3/go.mod h1:DgUz1Z3waQQY+3JXym1jTWbvAz6f1ShLzeB6OHE5sjI=
 github.com/dagger/graphql v0.0.0-20221102000338-24d5e47d3b72/go.mod h1:z9nYmunTkok2pE+Kdjpl1ICaqcCzlDxcVjwaFE0MJTc=
 github.com/dagger/graphql v0.0.0-20230601100125-137fc3a90735 h1:eZiRlRGdN726q4M1FRlO6Ti6KWPtMhOVzgZ9AQmq06g=
 github.com/dagger/graphql v0.0.0-20230601100125-137fc3a90735/go.mod h1:z9nYmunTkok2pE+Kdjpl1ICaqcCzlDxcVjwaFE0MJTc=
@@ -394,8 +394,8 @@ github.com/tonistiigi/vt100 v0.0.0-20210615222946-8066bb97264f/go.mod h1:ulncasL
 github.com/urfave/cli v1.22.12/go.mod h1:sSBEIC79qR6OvcmsD4U3KABeOTxDqQtdDnaFuUN30b8=
 github.com/vbatts/tar-split v0.11.3 h1:hLFqsOLQ1SsppQNTMpkpPXClLDfC2A3Zgy9OUU+RVck=
 github.com/vbatts/tar-split v0.11.3/go.mod h1:9QlHN18E+fEH7RdG+QAJJcuya3rqT7eXSTY7wGrAokY=
-github.com/vektah/gqlparser/v2 v2.5.3 h1:goUwv4+blhtwR3GwefadPVI4ubYc/WZSypljWMQa6IE=
-github.com/vektah/gqlparser/v2 v2.5.3/go.mod h1:z8xXUff237NntSuH8mLFijZ+1tjV1swDbpDqjJmk6ME=
+github.com/vektah/gqlparser/v2 v2.5.6 h1:Ou14T0N1s191eRMZ1gARVqohcbe1e8FrcONScsq8cRU=
+github.com/vektah/gqlparser/v2 v2.5.6/go.mod h1:z8xXUff237NntSuH8mLFijZ+1tjV1swDbpDqjJmk6ME=
 github.com/vito/progrock v0.7.0 h1:NJ6pOV6igmgFAi23JhEw9nwRGNtid/sqgMJ37hlknbo=
 github.com/vito/progrock v0.7.0/go.mod h1:UVw9s+ns8pVpHBIoLMfE8bMzFxXefnSejksNUiqSBvw=
 github.com/vito/vt100 v0.1.2 h1:gRhKJ/shHTRfMHg+Wc5ExHJzV6HHZqyQIAL52x4EUmA=
