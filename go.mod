@@ -2,10 +2,11 @@ module github.com/octohelm/wagon
 
 go 1.20
 
+replace cuelang.org/go => github.com/morlay/cue v0.5.1-0.20230625132636-33754e9dff2d
+
 replace (
 	// follow from dagger
 	cloud.google.com/go => cloud.google.com/go v0.100.2
-	cuelang.org/go => cuelang.org/go v0.5.0-beta.1
 	github.com/moby/buildkit => github.com/moby/buildkit v0.11.0-rc3.0.20230529232739-baffc1bda21b
 	github.com/opencontainers/image-spec => github.com/opencontainers/image-spec v1.1.0-rc3
 	github.com/spdx/tools-golang => github.com/spdx/tools-golang v0.5.0
@@ -21,14 +22,14 @@ replace (
 
 require (
 	cuelang.org/go v0.5.0-beta.1
-	dagger.io/dagger v0.7.2
-	github.com/dagger/dagger v0.6.2
+	dagger.io/dagger v0.7.3
+	github.com/dagger/dagger v0.6.3
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.2.0
 	github.com/google/uuid v1.3.0
-	github.com/innoai-tech/infra v0.0.0-20230615040720-354f8c1272d4
+	github.com/innoai-tech/infra v0.0.0-20230628061157-49c17a1edfaf
 	github.com/mattn/go-colorable v0.1.13
-	github.com/octohelm/courier v0.0.0-20230612084835-5bae73959f5b
+	github.com/octohelm/courier v0.0.0-20230627095241-130d2c77951d
 	github.com/octohelm/cuemod v0.6.3
 	github.com/octohelm/gengo v0.0.0-20230602052920-d1e8eaa72959
 	github.com/octohelm/storage v0.0.0-20230511032824-7f3085d1c289
@@ -37,17 +38,17 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
 	github.com/vito/progrock v0.7.0
-	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
-	golang.org/x/mod v0.11.0
-	golang.org/x/net v0.11.0
+	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df
+	golang.org/x/mod v0.12.0
+	golang.org/x/net v0.12.0
 	golang.org/x/sync v0.3.0
 )
 
 require (
-	github.com/99designs/gqlgen v0.17.33 // indirect
+	github.com/99designs/gqlgen v0.17.34 // indirect
 	github.com/Khan/genqlient v0.6.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
-	github.com/ProtonMail/go-crypto v0.0.0-20230528122434-6f98819771a1 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20230626094100-7e9e0395ebec // indirect
 	github.com/acomagu/bufpipe v1.0.4 // indirect
 	github.com/adrg/xdg v0.4.0 // indirect
 	github.com/agnivade/levenshtein v1.1.1 // indirect
@@ -101,7 +102,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
-	github.com/klauspost/compress v1.16.6 // indirect
+	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
@@ -119,7 +120,7 @@ require (
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
-	github.com/muesli/termenv v0.15.1 // indirect
+	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/onsi/gomega v1.27.6 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc3 // indirect
 	github.com/opencontainers/runc v1.1.7 // indirect
@@ -132,11 +133,11 @@ require (
 	github.com/skeema/knownhosts v1.1.1 // indirect
 	github.com/spf13/cobra v1.7.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/tonistiigi/fsutil v0.0.0-20230407161946-9e7a6df48576 // indirect
+	github.com/tonistiigi/fsutil v0.0.0-20230629203738-36ef4d8c0dbb // indirect
 	github.com/tonistiigi/units v0.0.0-20180711220420-6950e57a87ea // indirect
-	github.com/tonistiigi/vt100 v0.0.0-20210615222946-8066bb97264f // indirect
+	github.com/tonistiigi/vt100 v0.0.0-20230623042737-f9a4f7ef6531 // indirect
 	github.com/vbatts/tar-split v0.11.3 // indirect
-	github.com/vektah/gqlparser/v2 v2.5.3 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.6 // indirect
 	github.com/vito/vt100 v0.1.2 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
@@ -151,20 +152,20 @@ require (
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.16.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
-	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
-	golang.org/x/crypto v0.10.0 // indirect
-	golang.org/x/oauth2 v0.9.0 // indirect
-	golang.org/x/sys v0.9.0 // indirect
-	golang.org/x/term v0.9.0 // indirect
-	golang.org/x/text v0.10.0 // indirect
+	go.opentelemetry.io/proto/otlp v0.20.0 // indirect
+	golang.org/x/crypto v0.11.0 // indirect
+	golang.org/x/oauth2 v0.10.0 // indirect
+	golang.org/x/sys v0.10.0 // indirect
+	golang.org/x/term v0.10.0 // indirect
+	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	golang.org/x/tools v0.10.0 // indirect
+	golang.org/x/tools v0.11.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20230530153820-e85fd2cbaebc // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
-	google.golang.org/grpc v1.56.0 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/genproto v0.0.0-20230629202037-9506855d4529 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20230629202037-9506855d4529 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230629202037-9506855d4529 // indirect
+	google.golang.org/grpc v1.56.1 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

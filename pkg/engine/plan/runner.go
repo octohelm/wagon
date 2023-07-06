@@ -217,7 +217,8 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 
 	f := flow.New(
 		&flow.Config{
-			FindHiddenTasks: true,
+			FindHiddenTasks:     true,
+			DisableDynamicTasks: true,
 		},
 		cueValue,
 		noOpRunner,
@@ -272,7 +273,8 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 func (r *Runner) exec(ctx context.Context, cueValue cue.Value, shouldRun func(p cue.Path) bool) (cue.Value, error) {
 	f := flow.New(
 		&flow.Config{
-			FindHiddenTasks: true,
+			FindHiddenTasks:     true,
+			DisableDynamicTasks: true,
 		},
 		cueValue,
 		r.runTaskFunc(TaskRunnerFactoryContext.From(ctx), shouldRun),
