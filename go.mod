@@ -22,7 +22,7 @@ replace (
 
 require (
 	cuelang.org/go v0.5.0-beta.1
-	dagger.io/dagger v0.7.3
+	dagger.io/dagger v0.7.4
 	github.com/dagger/dagger v0.6.3
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-courier/logr v0.2.0
@@ -94,7 +94,7 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0 // indirect
-	github.com/iancoleman/strcase v0.2.0 // indirect
+	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
