@@ -61,7 +61,7 @@ actions: go: golang.#Project & {
 	ship: {
 		name: "\(strings.Replace(go.module, "github.com/", "ghcr.io/", -1))/\(go.binary)"
 
-		from: "docker.io/library/debian:bullseye-slim"
+		from: "docker.io/library/debian:bookworm-slim"
 
 		steps: [
 			debian.#InstallPackage & {
