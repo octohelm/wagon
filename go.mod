@@ -40,7 +40,7 @@ require (
 	github.com/vito/progrock v0.8.1
 	golang.org/x/exp v0.0.0-20230725012225-302865e7556b
 	golang.org/x/mod v0.12.0
-	golang.org/x/net v0.12.0
+	golang.org/x/net v0.13.0
 	golang.org/x/sync v0.3.0
 )
 
