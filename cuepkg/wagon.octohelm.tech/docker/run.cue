@@ -23,8 +23,12 @@ import (
 	_run: core.#Run & {
 		"input":  input.rootfs
 		"config": input.config
-		"mounts": mounts
-		"env":    env
+		"mounts": {
+			for k, v in mounts {
+				"\(k)": v
+			}
+		}
+		"env": env
 		if workdir != _|_ {
 			"workdir": workdir
 		}
