@@ -21,7 +21,7 @@ replace (
 )
 
 require (
-	cuelang.org/go v0.5.0
+	cuelang.org/go v0.6.0-rc.1
 	dagger.io/dagger v0.7.4
 	github.com/dagger/dagger v0.6.4
 	github.com/davecgh/go-spew v1.1.1
@@ -30,7 +30,7 @@ require (
 	github.com/innoai-tech/infra v0.0.0-20230726055416-e7933b1bc404
 	github.com/mattn/go-colorable v0.1.13
 	github.com/octohelm/courier v0.0.0-20230712081751-39cdf10112d1
-	github.com/octohelm/cuemod v0.6.3
+	github.com/octohelm/cuemod v0.7.0
 	github.com/octohelm/gengo v0.0.0-20230602052920-d1e8eaa72959
 	github.com/octohelm/storage v0.0.0-20230511032824-7f3085d1c289
 	github.com/octohelm/x v0.0.0-20220811034253-019992077a5d
