@@ -33,7 +33,6 @@ type Run struct {
 	} `json:"command,omitempty"`
 
 	Output core.FS `json:"-" wagon:"generated,name=output"`
-	Exit   int     `json:"-" wagon:"generated,name=exit"`
 }
 
 func (e *Run) Do(ctx context.Context) error {
@@ -97,12 +96,6 @@ func (e *Run) Do(ctx context.Context) error {
 		}
 
 		ct = ct.WithExec(args)
-
-		exitCode, err := ct.ExitCode(ctx)
-		if err != nil {
-			return err
-		}
-		e.Exit = exitCode
 
 		return e.Output.SetDirectoryIDBy(ctx, ct.Rootfs())
 	})

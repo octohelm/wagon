@@ -2,7 +2,6 @@ package daggerutil
 
 import (
 	"dagger.io/dagger"
-	"github.com/dagger/dagger/core/schema"
 )
 
 type Directory struct {
@@ -18,9 +17,19 @@ type Container struct {
 	DefaultArgs []string `json:"defaultArgs,omitempty"`
 	Workdir     string   `json:"workdir,omitempty"`
 
-	User         string               `json:"user,omitempty"`
-	EnvVariables []schema.EnvVariable `json:"envVariables,omitempty"`
-	Labels       []schema.Label       `json:"labels,omitempty"`
+	User         string        `json:"user,omitempty"`
+	EnvVariables []EnvVariable `json:"envVariables,omitempty"`
+	Labels       []Label       `json:"labels,omitempty"`
 
 	RootFS Directory `json:"rootfs,omitempty"`
+}
+
+type Label struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+type EnvVariable struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }

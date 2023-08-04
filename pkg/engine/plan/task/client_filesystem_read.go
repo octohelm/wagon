@@ -34,7 +34,8 @@ func (f *ClientFilesystemRead) Do(ctx context.Context) error {
 			return err
 		}
 		if secret := f.Contents.Secret; secret != nil {
-			fsSecret := c.Directory().WithNewFile(p, string(contents)).File(p).Secret()
+			fsSecret := c.SetSecret(p, string(contents))
+
 			if err := secret.SetSecretIDBy(ctx, fsSecret); err != nil {
 				return err
 			}

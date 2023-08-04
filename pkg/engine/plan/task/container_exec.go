@@ -24,7 +24,6 @@ type Exec struct {
 	User    string                         `json:"user" default:"root:root"`
 	Always  bool                           `json:"always,omitempty"`
 
-	Exit   int     `json:"-" wagon:"generated,name=exit"`
 	Output core.FS `json:"-" wagon:"generated,name=output"`
 }
 
@@ -60,12 +59,6 @@ func (e *Exec) Do(ctx context.Context) error {
 		}
 
 		ct = ct.WithExec(e.Args)
-
-		exitCode, err := ct.ExitCode(ctx)
-		if err != nil {
-			return err
-		}
-		e.Exit = exitCode
 
 		return e.Output.SetDirectoryIDBy(ctx, ct.Rootfs())
 	})

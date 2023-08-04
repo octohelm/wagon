@@ -6,6 +6,8 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"github.com/go-courier/logr"
+	"github.com/octohelm/wagon/pkg/logutil"
 	"io"
 	"os"
 	"sort"
@@ -246,11 +248,12 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 			return err
 		}
 
+		l := logr.FromContext(ctx)
+
 		if o := ret.LookupPath(r.target).LookupPath(cue.ParsePath("output")); o.Exists() {
 			if r.output != "" {
 				for i := range r.exporters {
 					e := r.exporters[i]
-
 					_ = o.Value().Decode(e)
 
 					if e.CanExport() {
@@ -259,10 +262,19 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 						if err != nil {
 							return err
 						}
-						return e.ExportTo(ctx, dest)
+
+						if err := e.ExportTo(ctx, dest); err != nil {
+							return err
+						}
+
+						l.Info(fmt.Sprintf("%s exported to %s", e.Type(), r.output))
 					}
 				}
 			}
+		}
+
+		if o := ret.LookupPath(r.target).LookupPath(cue.ParsePath("result")); o.Exists() {
+			l.WithValues("result", logutil.CueValue(o.Value())).Info("published.")
 		}
 
 		return nil
@@ -290,6 +302,14 @@ func noOpRunner(cueValue cue.Value) (flow.Runner, error) {
 	if !v.Exists() {
 		return nil, nil
 	}
+
+	// task in slice not be valid task
+	for _, s := range v.Path().Selectors() {
+		if s.Type() == cue.IndexLabel {
+			return nil, nil
+		}
+	}
+
 	return flow.RunnerFunc(func(t *flow.Task) error {
 		return nil
 	}), nil

@@ -46,8 +46,6 @@ import (
 		}
 	}
 
-	exit: _run.exit
-
 	output: #Image & {
 		rootfs:   _run.output
 		config:   input.config

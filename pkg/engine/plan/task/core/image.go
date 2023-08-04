@@ -18,6 +18,10 @@ type Image struct {
 	Platform string      `json:"platform,omitempty"`
 }
 
+func (img *Image) Type() string {
+	return "oci"
+}
+
 func (img *Image) CanExport() bool {
 	return img.Rootfs.CanExport()
 }

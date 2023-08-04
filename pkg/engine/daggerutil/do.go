@@ -38,11 +38,13 @@ func ConnectDo(ctx context.Context, do func(ctx context.Context) error) error {
 		runnerHost = os.Getenv("BUILDKIT_HOST")
 	}
 
-	if err := StartEngineOnBackground(ctx, WithRunnerHost(runnerHost)); err != nil {
+	engineConn, release, err := ConnectEngine(ctx, WithRunnerHost(runnerHost))
+	if err != nil {
 		return err
 	}
+	defer release()
 
-	c, err := dagger.Connect(ctx)
+	c, err := dagger.Connect(ctx, dagger.WithConn(engineConn))
 	if err != nil {
 		return err
 	}
