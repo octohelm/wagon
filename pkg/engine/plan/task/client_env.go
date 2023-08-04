@@ -46,7 +46,7 @@ func (v *ClientEnv) Do(ctx context.Context) error {
 
 			if envVar, ok := clientEnvs[key]; ok {
 				if secret := e.Secret; secret != nil {
-					envSecret := c.Host().EnvVariable(key).Secret()
+					envSecret := c.SetSecret(key, envVar)
 
 					if err := secret.SetSecretIDBy(ctx, envSecret); err != nil {
 						return err
@@ -64,6 +64,7 @@ func (v *ClientEnv) Do(ctx context.Context) error {
 				if secret := e.Secret; secret != nil {
 					return errors.Errorf("EnvVar %s is not defined.", key)
 				}
+
 				env[key] = e
 			}
 		}

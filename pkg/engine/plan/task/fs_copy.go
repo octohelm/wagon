@@ -2,7 +2,6 @@ package task
 
 import (
 	"context"
-
 	"dagger.io/dagger"
 	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"github.com/octohelm/wagon/pkg/engine/plan/task/core"

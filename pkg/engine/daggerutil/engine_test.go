@@ -1,6 +1,7 @@
 package daggerutil
 
 import (
+	"fmt"
 	"os"
 	"testing"
 	"time"
@@ -12,37 +13,56 @@ import (
 	"golang.org/x/net/context"
 )
 
-func _TestDebugDagger(t *testing.T) {
-	_ = os.Chdir("../../..")
+func TestDebugDagger(t *testing.T) {
+	runnerHost := os.Getenv("BUILDKIT_HOST")
 
-	ctx := logr.WithLogger(context.Background(), slog.Logger(slog.Default()))
-
-	_ = StartEngineOnBackground(
-		ctx,
-		WithRunnerHost(os.Getenv("BUILDKIT_HOST")),
-	)
-
-	client, err := dagger.Connect(ctx)
-	if err != nil {
-		panic(errors.Wrapf(err, "connect dagger failed"))
-	}
-	defer client.Close()
-
-	cc := client.Pipeline("$$pipeline")
-
-	c := cc.Container().
-		From("busybox").
-		WithEnvVariable("DATE", time.Now().String()).
-		WithExec([]string{"sh", "-c", "mkdir -p /dist"}).
-		WithExec([]string{"sh", "-c", "echo ${DATE} > /dist/txt"})
-
-	if _, err := c.ExitCode(ctx); err != nil {
-		panic(err)
+	if runnerHost == "" {
+		t.Skip()
 	}
 
-	// #Copy fs to local
-	_, err = c.Directory("/dist").Export(ctx, ".wagon/demo")
-	if err != nil {
-		panic(errors.Wrapf(err, "export to client failed"))
-	}
+	t.Run(fmt.Sprintf("With "), func(t *testing.T) {
+		_ = os.Chdir("../../..")
+
+		ctx := logr.WithLogger(context.Background(), slog.Logger(slog.Default()))
+
+		engineConn, release, _ := ConnectEngine(
+			ctx,
+			WithRunnerHost(runnerHost),
+		)
+		defer release()
+
+		client, err := dagger.Connect(ctx, dagger.WithConn(engineConn))
+		if err != nil {
+			panic(errors.Wrapf(err, "connect dagger failed"))
+		}
+		defer client.Close()
+
+		cc := client.Pipeline("$$pipeline")
+
+		c := cc.Container().
+			From("busybox").
+			WithEnvVariable("DATE", time.Now().String()).
+			WithExec([]string{"sh", "-c", "mkdir -p /dist"}).
+			WithExec([]string{"sh", "-c", "echo ${DATE} > /dist/txt"})
+
+		dir, err := c.Rootfs().Sync(ctx)
+		if err != nil {
+			panic(err)
+		}
+
+		id, err := dir.ID(ctx)
+		if err != nil {
+			panic(err)
+		}
+
+		c2 := cc.Container().WithRootfs(cc.Directory(dagger.DirectoryOpts{
+			ID: id,
+		}))
+
+		// #Copy fs to local
+		_, err = c2.Directory("/dist").Export(ctx, ".wagon/demo")
+		if err != nil {
+			panic(errors.Wrapf(err, "export to client failed"))
+		}
+	})
 }

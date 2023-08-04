@@ -2,20 +2,13 @@ package daggerutil
 
 import (
 	"fmt"
-	"net"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
-
-	"github.com/dagger/dagger/engine"
-	"github.com/dagger/dagger/router"
-	"github.com/google/uuid"
-	"github.com/pkg/errors"
+	"github.com/dagger/dagger/engine/client"
+	"github.com/go-courier/logr"
 	"github.com/vito/progrock/console"
 	"golang.org/x/net/context"
-	"golang.org/x/sync/errgroup"
+	"net/http"
+	"net/http/httptest"
+	"os"
 )
 
 type contextInternalDebug struct {
@@ -33,19 +26,15 @@ func InternalDebugFromContext(ctx context.Context) bool {
 	return false
 }
 
-type engineOption struct {
-	RunnerHost string
-}
-
-type EngineOptionFunc = func(x *engineOption)
+type EngineOptionFunc = func(x *client.Params)
 
 func WithRunnerHost(runnerHost string) EngineOptionFunc {
-	return func(x *engineOption) {
+	return func(x *client.Params) {
 		x.RunnerHost = runnerHost
 	}
 }
 
-var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.6.4"
+var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.8.1"
 
 func RunnerHost() string {
 	var runnerHost string
@@ -57,69 +46,55 @@ func RunnerHost() string {
 	return runnerHost
 }
 
-func StartEngineOnBackground(ctx context.Context, optFns ...EngineOptionFunc) error {
-	opt := &engineOption{}
+func ConnectEngine(ctx context.Context, optFns ...EngineOptionFunc) (DirectConn, func() error, error) {
+	params := &client.Params{}
 	for i := range optFns {
-		optFns[i](opt)
+		optFns[i](params)
 	}
 
-	if opt.RunnerHost == "" {
-		opt.RunnerHost = RunnerHost()
+	if params.RunnerHost == "" {
+		params.RunnerHost = RunnerHost()
 	}
 
-	token := uuid.Must(uuid.NewRandom()).String()
+	params.ProgrockWriter = console.NewWriter(
+		os.Stdout,
+		console.ShowInternal(InternalDebugFromContext(ctx)),
+		console.WithUI(console.DefaultUI),
+	)
 
-	startOpts := engine.Config{
-		RunnerHost:   opt.RunnerHost,
-		SessionToken: token,
-		ProgrockWriter: console.NewWriter(
-			os.Stdout,
-			console.ShowInternal(InternalDebugFromContext(ctx)),
-			console.WithUI(console.DefaultUI),
-		),
+	params.EngineNameCallback = func(name string) {
+		logr.FromContext(ctx).Info(fmt.Sprintf("Connected to engine %s", name))
 	}
 
-	eg := &errgroup.Group{}
-
-	l, err := net.Listen("tcp", ":0")
+	engineClient, ctx, err := client.Connect(ctx, *params)
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
 
-	_ = os.Setenv("DAGGER_SESSION_TOKEN", startOpts.SessionToken)
-	_ = os.Setenv("DAGGER_SESSION_PORT", fmt.Sprintf("%d", l.Addr().(*net.TCPAddr).Port))
+	return EngineConn(engineClient), func() error {
+		return engineClient.Close()
+	}, nil
+}
 
-	srv := http.Server{
-		ReadHeaderTimeout: 30 * time.Second,
+func EngineConn(engineClient *client.Client) DirectConn {
+	return func(req *http.Request) (*http.Response, error) {
+		req.SetBasicAuth(engineClient.SecretToken, "")
+		resp := httptest.NewRecorder()
+		engineClient.ServeHTTP(resp, req)
+		return resp.Result(), nil
 	}
+}
 
-	eg.Go(func() error {
-		signalCh := make(chan os.Signal, 1)
-		signal.Notify(signalCh, syscall.SIGINT, syscall.SIGTERM)
+type DirectConn func(*http.Request) (*http.Response, error)
 
-		<-signalCh
-		if err := srv.Shutdown(ctx); err != nil {
-			if !errors.Is(err, net.ErrClosed) {
-				return err
-			}
-		}
-		return nil
-	})
+func (f DirectConn) Do(r *http.Request) (*http.Response, error) {
+	return f(r)
+}
 
-	eg.Go(func() error {
-		return engine.Start(ctx, startOpts, func(ctx context.Context, r *router.Router) error {
-			srv.Handler = r
-			err := srv.Serve(l)
-			if err != nil && !errors.Is(err, net.ErrClosed) {
-				return err
-			}
-			return nil
-		})
-	})
+func (f DirectConn) Host() string {
+	return ":mem:"
+}
 
-	go func() {
-		_ = eg.Wait()
-	}()
-
+func (f DirectConn) Close() error {
 	return nil
 }

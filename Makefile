@@ -5,7 +5,11 @@ ifeq ($(DEBUG),1)
 	WAGON := $(WAGON) --log-level=debug
 endif
 
-export BUILDKIT_HOST =
+export CGO_ENABLED = 0
+#export BUILDKIT_HOST =
+
+wagon.debug:
+	WAGON_GRAPH=1 $(WAGON) do go build linux/arm64
 
 wagon.ship:
 	$(WAGON) do go ship pushx
@@ -15,9 +19,6 @@ wagon.help:
 
 wagon.archive:
 	$(WAGON) do --output=.wagon/build go archive
-
-wagon.debug:
-	$(WAGON) do go build linux/arm64
 
 install:
 	CGO_ENABLED=0 go install ./cmd/wagon

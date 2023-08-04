@@ -22,15 +22,13 @@ type FS struct {
 	} `json:"$wagon"`
 }
 
-func (fs *FS) SetDirectoryIDBy(ctx context.Context, dir *dagger.Directory) error {
-	// Trigger build for each step
-	// which will make log in correct scope
-	if _, err := dir.Entries(ctx); err != nil {
-		return errors.Wrap(err, "resolve entries failed")
-	}
-
-	id, err := dir.ID(ctx)
+func (fs *FS) SetDirectoryIDBy(ctx context.Context, d *dagger.Directory) error {
+	dir, err := d.Sync(ctx)
 	if err != nil {
+		return err
+	}
+	id, err := dir.ID(ctx)
+	if err != nil || id == "" {
 		return errors.Wrap(err, "resolve dir id failed")
 	}
 	fs.SetDirectoryID(id)
@@ -50,6 +48,10 @@ func (fs *FS) DirectoryID() dagger.DirectoryID {
 		return k.(dagger.DirectoryID)
 	}
 	return ""
+}
+
+func (f *FS) Type() string {
+	return "fs"
 }
 
 func (f *FS) CanExport() bool {
