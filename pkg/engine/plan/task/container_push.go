@@ -64,7 +64,9 @@ type PushImage struct {
 	Input    core.FS          `json:"input"`
 	Config   core.ImageConfig `json:"config"`
 	Platform string           `json:"platform,omitempty"`
-	Auth     *core.Auth       `json:"auth,omitempty"`
+	Format   string           `json:"format,omitempty" enum:"docker,oci" default:"docker"`
+
+	Auth *core.Auth `json:"auth,omitempty"`
 
 	Result string `json:"-" wagon:"generated,name=result"`
 }
@@ -101,6 +103,7 @@ func (input *PushImage) Do(ctx context.Context) error {
 			PlatformVariants: []*dagger.Container{
 				ctr,
 			},
+			MediaTypes: Format(input.Format).MediaTypes(),
 		})
 		if err != nil {
 			return err
@@ -114,13 +117,15 @@ func (input *PushImage) Do(ctx context.Context) error {
 type PushManifests struct {
 	core.Task
 
-	Dest string `json:"dest"`
-	Type string `json:"type" enum:"manifests"`
+	Dest   string `json:"dest"`
+	Type   string `json:"type" enum:"manifests"`
+	Format string `json:"format,omitempty" enum:"docker,oci" default:"docker"`
 
 	Inputs map[string]struct {
 		Input  core.FS          `json:"input"`
 		Config core.ImageConfig `json:"config"`
 	} `json:"inputs"`
+
 	Auth *core.Auth `json:"auth,omitempty"`
 
 	Result string `json:"-" wagon:"generated,name=result"`
@@ -159,6 +164,7 @@ func (input *PushManifests) Do(ctx context.Context) error {
 
 		ret, err := ct.Publish(ctx, input.Dest, dagger.ContainerPublishOpts{
 			PlatformVariants: cts,
+			MediaTypes:       Format(input.Format).MediaTypes(),
 		})
 		if err != nil {
 			return err
@@ -166,4 +172,13 @@ func (input *PushManifests) Do(ctx context.Context) error {
 		input.Result = ret
 		return nil
 	})
+}
+
+type Format string
+
+func (f Format) MediaTypes() dagger.ImageMediaTypes {
+	if f == "oci" {
+		return dagger.Ocimediatypes
+	}
+	return dagger.Dockermediatypes
 }

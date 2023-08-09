@@ -209,8 +209,6 @@ func (v Exec) RuntimeDoc(names ...string) ([]string, bool) {
 			return []string{}, true
 		case "Always":
 			return []string{}, true
-		case "Exit":
-			return []string{}, true
 		case "Output":
 			return []string{}, true
 
@@ -221,6 +219,9 @@ func (v Exec) RuntimeDoc(names ...string) ([]string, bool) {
 	return []string{}, true
 }
 
+func (Format) RuntimeDoc(names ...string) ([]string, bool) {
+	return []string{}, true
+}
 func (v HTTPFetch) RuntimeDoc(names ...string) ([]string, bool) {
 	if len(names) > 0 {
 		switch names[0] {
@@ -339,6 +340,8 @@ func (v PushImage) RuntimeDoc(names ...string) ([]string, bool) {
 			return []string{}, true
 		case "Platform":
 			return []string{}, true
+		case "Format":
+			return []string{}, true
 		case "Auth":
 			return []string{}, true
 		case "Result":
@@ -357,6 +360,8 @@ func (v PushManifests) RuntimeDoc(names ...string) ([]string, bool) {
 		case "Dest":
 			return []string{}, true
 		case "Type":
+			return []string{}, true
+		case "Format":
 			return []string{}, true
 		case "Inputs":
 			return []string{}, true
@@ -441,8 +446,6 @@ func (v Run) RuntimeDoc(names ...string) ([]string, bool) {
 		case "Entrypoint":
 			return []string{}, true
 		case "Output":
-			return []string{}, true
-		case "Exit":
 			return []string{}, true
 
 		}

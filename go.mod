@@ -1,6 +1,6 @@
 module github.com/octohelm/wagon
 
-go 1.20
+go 1.21
 
 replace cuelang.org/go => github.com/morlay/cue v0.6.0-rc.1.0.20230802055224-c0a6c100a697
 
@@ -23,20 +23,20 @@ require (
 	cuelang.org/go v0.6.0-rc.1
 	dagger.io/dagger v0.8.1
 	github.com/dagger/dagger v0.8.1
-	github.com/davecgh/go-spew v1.1.1
-	github.com/go-courier/logr v0.2.0
-	github.com/innoai-tech/infra v0.0.0-20230726055416-e7933b1bc404
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+	github.com/go-courier/logr v0.3.0
+	github.com/innoai-tech/infra v0.0.0-20230809024609-b28415b90502
 	github.com/mattn/go-colorable v0.1.13
-	github.com/octohelm/courier v0.0.0-20230712081751-39cdf10112d1
-	github.com/octohelm/cuemod v0.7.1
-	github.com/octohelm/gengo v0.0.0-20230602052920-d1e8eaa72959
-	github.com/octohelm/storage v0.0.0-20230511032824-7f3085d1c289
-	github.com/octohelm/x v0.0.0-20220811034253-019992077a5d
+	github.com/octohelm/courier v0.0.0-20230809023744-57fc047576ed
+	github.com/octohelm/cuemod v0.8.0
+	github.com/octohelm/gengo v0.0.0-20230809023313-1339e47458a4
+	github.com/octohelm/storage v0.0.0-20230809023612-f4199ff2c708
+	github.com/octohelm/x v0.0.0-20230809022453-ac959a9edb9f
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
 	github.com/vito/progrock v0.9.0
-	golang.org/x/exp v0.0.0-20230801115018-d63ba01acd4b
+	golang.org/x/exp v0.0.0-20230807204917-050eac23e9de
 	golang.org/x/mod v0.12.0
 	golang.org/x/net v0.14.0
 )
@@ -143,7 +143,7 @@ require (
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.16.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
-	go.opentelemetry.io/proto/otlp v0.20.0 // indirect
+	go.opentelemetry.io/proto/otlp v1.0.0 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
 	golang.org/x/oauth2 v0.11.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
@@ -151,11 +151,11 @@ require (
 	golang.org/x/term v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	golang.org/x/tools v0.11.1 // indirect
+	golang.org/x/tools v0.12.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20230803162519-f966b187b2e5 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20230803162519-f966b187b2e5 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20230803162519-f966b187b2e5 // indirect
+	google.golang.org/genproto v0.0.0-20230807174057-1744710a1577 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20230807174057-1744710a1577 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230807174057-1744710a1577 // indirect
 	google.golang.org/grpc v1.57.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect

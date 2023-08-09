@@ -43,10 +43,43 @@ func (v Container) RuntimeDoc(names ...string) ([]string, bool) {
 	return []string{}, true
 }
 
+func (DirectConn) RuntimeDoc(names ...string) ([]string, bool) {
+	return []string{}, true
+}
 func (v Directory) RuntimeDoc(names ...string) ([]string, bool) {
 	if len(names) > 0 {
 		switch names[0] {
 		case "ID":
+			return []string{}, true
+
+		}
+
+		return nil, false
+	}
+	return []string{}, true
+}
+
+func (v EnvVariable) RuntimeDoc(names ...string) ([]string, bool) {
+	if len(names) > 0 {
+		switch names[0] {
+		case "Name":
+			return []string{}, true
+		case "Value":
+			return []string{}, true
+
+		}
+
+		return nil, false
+	}
+	return []string{}, true
+}
+
+func (v Label) RuntimeDoc(names ...string) ([]string, bool) {
+	if len(names) > 0 {
+		switch names[0] {
+		case "Name":
+			return []string{}, true
+		case "Value":
 			return []string{}, true
 
 		}
