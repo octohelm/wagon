@@ -2,8 +2,6 @@ module github.com/octohelm/wagon
 
 go 1.21
 
-replace cuelang.org/go => github.com/morlay/cue v0.6.0-rc.1.0.20230802055224-c0a6c100a697
-
 replace (
 	// follow from dagger
 	cloud.google.com/go => cloud.google.com/go v0.100.2
@@ -20,7 +18,7 @@ replace (
 )
 
 require (
-	cuelang.org/go v0.6.0-rc.1
+	cuelang.org/go v0.6.0
 	dagger.io/dagger v0.8.1
 	github.com/dagger/dagger v0.8.1
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
