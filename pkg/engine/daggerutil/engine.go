@@ -2,13 +2,16 @@ package daggerutil
 
 import (
 	"fmt"
+	"github.com/dagger/dagger/engine"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"runtime/debug"
+
 	"github.com/dagger/dagger/engine/client"
 	"github.com/go-courier/logr"
 	"github.com/vito/progrock/console"
 	"golang.org/x/net/context"
-	"net/http"
-	"net/http/httptest"
-	"os"
 )
 
 type contextInternalDebug struct {
@@ -34,7 +37,20 @@ func WithRunnerHost(runnerHost string) EngineOptionFunc {
 	}
 }
 
-var DefaultRunnerHost = "docker-image://ghcr.io/dagger/engine:v0.8.1"
+var engineVersion = func() string {
+	bi, ok := debug.ReadBuildInfo()
+	if ok {
+		for _, dep := range bi.Deps {
+			if dep.Path == "github.com/dagger/dagger" {
+				engine.Version = dep.Version
+				return dep.Version
+			}
+		}
+	}
+	return ""
+}()
+
+var DefaultRunnerHost = fmt.Sprintf("docker-image://ghcr.io/dagger/engine:%s", engineVersion)
 
 func RunnerHost() string {
 	var runnerHost string

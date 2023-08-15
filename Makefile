@@ -6,7 +6,7 @@ ifeq ($(DEBUG),1)
 endif
 
 export CGO_ENABLED = 0
-#export BUILDKIT_HOST =
+export BUILDKIT_HOST =
 
 wagon.debug:
 	WAGON_GRAPH=1 $(WAGON) do go build linux/arm64
