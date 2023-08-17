@@ -20,7 +20,7 @@ replace (
 require (
 	cuelang.org/go v0.6.0
 	dagger.io/dagger v0.8.2
-	github.com/dagger/dagger v0.8.2
+	github.com/dagger/dagger v0.8.3
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/go-courier/logr v0.3.0
 	github.com/innoai-tech/infra v0.0.0-20230809024609-b28415b90502
@@ -33,7 +33,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
-	github.com/vito/progrock v0.9.0
+	github.com/vito/progrock v0.9.1-0.20230815145556-518f2dcd6e2f
 	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
 	golang.org/x/mod v0.12.0
 	golang.org/x/net v0.14.0
