@@ -19,7 +19,7 @@ replace (
 
 require (
 	cuelang.org/go v0.6.0
-	dagger.io/dagger v0.8.2
+	dagger.io/dagger v0.8.3
 	github.com/dagger/dagger v0.8.2
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/go-courier/logr v0.3.0
