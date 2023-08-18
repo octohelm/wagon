@@ -103,8 +103,8 @@ github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46t
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/cyphar/filepath-securejoin v0.2.3 h1:YX6ebbZCZP7VkM3scTTokDgBL2TY741X51MTk3ycuNI=
 github.com/cyphar/filepath-securejoin v0.2.3/go.mod h1:aPGpWjXOXUn2NCNjFvBE6aRxGGx79pTxQpKOJNYHHl4=
-github.com/dagger/dagger v0.8.2 h1:ekgQ9Ic71vCU8T/EBMxi7az3y8sdfPgPor3ez+sU5O4=
-github.com/dagger/dagger v0.8.2/go.mod h1:HuJ9duoNEunauw8gnIkXXCQ+qWwh0CqZ9uhLzt4vVso=
+github.com/dagger/dagger v0.8.4 h1:eEhe+Wa8K4WsYpcarqaZ3pCu0BmVpPA9Ijedt/I6F+c=
+github.com/dagger/dagger v0.8.4/go.mod h1:p6PbtMuw0wYZmZjdhVOnJAb3ns2AyP8zxl4ysmbBxxk=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=
@@ -421,8 +421,8 @@ github.com/vbatts/tar-split v0.11.5 h1:3bHCTIheBm1qFTcgh9oPu+nNBtX+XJIupG/vacinC
 github.com/vbatts/tar-split v0.11.5/go.mod h1:yZbwRsSeGjusneWgA781EKej9HF8vme8okylkAeNKLk=
 github.com/vektah/gqlparser/v2 v2.5.8 h1:pm6WOnGdzFOCfcQo9L3+xzW51mKrlwTEg4Wr7AH1JW4=
 github.com/vektah/gqlparser/v2 v2.5.8/go.mod h1:z8xXUff237NntSuH8mLFijZ+1tjV1swDbpDqjJmk6ME=
-github.com/vito/progrock v0.9.0 h1:K/eKa0loW1n5NXw0PIa1SH2/pxMHaFA2ltZzKZbvy8I=
-github.com/vito/progrock v0.9.0/go.mod h1:1KTQP8B56h0didAAY+/kmhGjp423TSBrNUrgUWYo9ec=
+github.com/vito/progrock v0.9.1-0.20230815145556-518f2dcd6e2f h1:Gh2GwkSopn7qbdbk6fZrCECTy86CZyry7iSw5nHCdmw=
+github.com/vito/progrock v0.9.1-0.20230815145556-518f2dcd6e2f/go.mod h1:KTuI7LkISnoOTc/EehHHvnpVNwp11928948+ZSMLDvc=
 github.com/vito/vt100 v0.1.2 h1:gRhKJ/shHTRfMHg+Wc5ExHJzV6HHZqyQIAL52x4EUmA=
 github.com/vito/vt100 v0.1.2/go.mod h1:ByMBsZZEP04RrkT9q/UxvZOjECM8Xc/MRLZ7GLrAUXs=
 github.com/xanzy/ssh-agent v0.3.3 h1:+/15pJfg/RsTxqYcX6fHqOXZwwMP+2VyYWJeWM2qQFM=
