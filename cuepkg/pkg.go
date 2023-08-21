@@ -8,12 +8,9 @@ import (
 	"github.com/octohelm/wagon/pkg/fsutil"
 	"github.com/octohelm/wagon/pkg/version"
 	"github.com/octohelm/wagon/pkg/version/semver"
-	"github.com/opencontainers/go-digest"
 	"github.com/spf13/afero"
-	"golang.org/x/mod/sumdb/dirhash"
 	"io"
 	"io/fs"
-	"strings"
 )
 
 //go:embed dagger.io universe.dagger.io wagon.octohelm.tech
@@ -42,11 +39,7 @@ func RegistryCueStdlibs() error {
 }
 
 func registerStdlib(fs fs.ReadDirFS, ver *semver.SemVer, modules ...string) error {
-	h, err := fsutil.HashDir(fs, ".", "", dirhash.Hash1)
-	if err != nil {
-		return err
-	}
-	stdlib.Register(fs, fmt.Sprintf("%s-20200202235959-%s", ver, strings.ToLower(digest.FromString(h).Hex()[0:12])), modules...)
+	stdlib.Register(fs, ver.String(), modules...)
 	return nil
 }
 
