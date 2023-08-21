@@ -8,6 +8,7 @@ import (
 	"github.com/octohelm/wagon/cuepkg"
 	"github.com/octohelm/wagon/pkg/engine/plan"
 	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
+	"github.com/octohelm/wagon/pkg/version/gomod"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"os"
@@ -47,6 +48,8 @@ func WithOutput(output string) OptFunc {
 	}
 }
 
+var inCI = os.Getenv("CI") == "true"
+
 func New(ctx context.Context, opts ...OptFunc) (Project, error) {
 	c := &project{}
 	for i := range opts {
@@ -72,6 +75,15 @@ func New(ctx context.Context, opts ...OptFunc) (Project, error) {
 
 	if err := c.instance.Err; err != nil {
 		return nil, err
+	}
+
+	d, err := gomod.Describe(cwd)
+	if err != nil {
+		return nil, err
+	}
+
+	if inCI && strings.Contains(d, "-dirty") {
+		return nil, errors.New("dirty build not allowed in CI")
 	}
 
 	return c, nil

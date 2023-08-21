@@ -24,6 +24,14 @@ func run(workdir string, cmdline ...string) (string, error) {
 	return string(out), nil
 }
 
+func Describe(workdir string) (string, error) {
+	d, err := run(workdir, "git", "describe", "--always", "--tags", "--match", `v*`, "--dirty")
+	if err != nil {
+		return "", errors.Wrap(err, "git describe run failed")
+	}
+	return d, nil
+}
+
 func LocalRevInfo(workdir string) (*RevInfo, error) {
 	if _, err := os.Stat(".git/shallow"); err == nil {
 		_, _ = run(workdir, "git", "fetch", "--unshallow")
@@ -34,7 +42,7 @@ func LocalRevInfo(workdir string) (*RevInfo, error) {
 		return nil, errors.Wrap(err, "git log failed")
 	}
 
-	d, err := run(workdir, "git", "describe", "--always", "--tags", "--match", `v*`, "--dirty")
+	d, err := Describe(workdir)
 	if err != nil {
 		return nil, errors.Wrap(err, "git describe run failed")
 	}
