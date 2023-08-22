@@ -3,14 +3,14 @@ package cuepkg
 import (
 	"embed"
 	"fmt"
-	"github.com/octohelm/cuemod/pkg/cuemod/stdlib"
-	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
-	"github.com/octohelm/wagon/pkg/fsutil"
-	"github.com/octohelm/wagon/pkg/version"
-	"github.com/octohelm/wagon/pkg/version/semver"
-	"github.com/spf13/afero"
 	"io"
 	"io/fs"
+
+	"github.com/octohelm/cuemod/pkg/cuemod/stdlib"
+	"github.com/octohelm/wagon/internal/version"
+	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
+	"github.com/octohelm/wagon/pkg/fsutil"
+	"github.com/spf13/afero"
 )
 
 //go:embed dagger.io universe.dagger.io wagon.octohelm.tech
@@ -29,17 +29,15 @@ func RegistryCueStdlibs() error {
 		return err
 	}
 
-	ver := semver.Parse(version.Version())
-
-	if err := registerStdlib(wagonModule, ver, WagonModule, DaggerModule, DaggerUniverseModule); err != nil {
+	if err := registerStdlib(wagonModule, version.Version(), WagonModule, DaggerModule, DaggerUniverseModule); err != nil {
 		return nil
 	}
 
 	return nil
 }
 
-func registerStdlib(fs fs.ReadDirFS, ver *semver.SemVer, modules ...string) error {
-	stdlib.Register(fs, ver.String(), modules...)
+func registerStdlib(fs fs.ReadDirFS, ver string, modules ...string) error {
+	stdlib.Register(fs, ver, modules...)
 	return nil
 }
 

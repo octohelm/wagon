@@ -49,7 +49,7 @@ actions: go: golang.#Project & {
 	main: "./cmd/wagon"
 	ldflags: [
 		"-s -w",
-		"-X \(go.module)/pkg/version.version=\(go.version)",
+		"-X \(go.module)/internal/version.version=\(go.version)",
 	]
 
 	build: {

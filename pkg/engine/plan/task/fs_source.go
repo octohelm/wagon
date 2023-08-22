@@ -38,7 +38,7 @@ func (s *Source) Do(ctx context.Context) error {
 		cacheHitsFile := fmt.Sprintf(".fake-cache-hits-%d", time.Now().Unix())
 
 		if version, _ := gomod.LocalRevInfo(p); version != nil {
-			cacheHitsFile = cacheHitsFile + "-" + version.Version()
+			cacheHitsFile = cacheHitsFile + "-" + version.Version
 		}
 
 		hostDir := c.Host().Directory(p, dagger.HostDirectoryOpts{

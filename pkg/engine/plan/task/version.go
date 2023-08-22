@@ -31,6 +31,6 @@ func (v *Version) Do(ctx context.Context) error {
 		return errors.Wrapf(err, "load version failed")
 	}
 
-	v.Output = revInfo.Version()
+	v.Output = revInfo.Version
 	return nil
 }

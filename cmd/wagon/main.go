@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/innoai-tech/infra/pkg/cli"
-	"github.com/octohelm/wagon/pkg/version"
+	"github.com/octohelm/wagon/internal/version"
 	"golang.org/x/net/context"
 )
 

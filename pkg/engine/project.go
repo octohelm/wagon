@@ -77,12 +77,12 @@ func New(ctx context.Context, opts ...OptFunc) (Project, error) {
 		return nil, err
 	}
 
-	d, err := gomod.Describe(cwd)
+	v, err := gomod.LocalRevInfo(cwd)
 	if err != nil {
 		return nil, err
 	}
 
-	if inCI && strings.Contains(d, "-dirty") {
+	if inCI && strings.Contains(v.Version, "-dirty") {
 		return nil, errors.New("dirty build not allowed in CI")
 	}
 
