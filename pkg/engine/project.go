@@ -4,6 +4,7 @@ import (
 	"cuelang.org/go/cue/build"
 	"cuelang.org/go/cue/cuecontext"
 	cueload "cuelang.org/go/cue/load"
+	"github.com/go-courier/logr"
 	"github.com/octohelm/cuemod/pkg/cuemod"
 	"github.com/octohelm/wagon/cuepkg"
 	"github.com/octohelm/wagon/pkg/engine/plan"
@@ -77,14 +78,16 @@ func New(ctx context.Context, opts ...OptFunc) (Project, error) {
 		return nil, err
 	}
 
-	v, err := gomod.LocalRevInfo(cwd)
+	version, err := gomod.LocalRevInfo(cwd)
 	if err != nil {
 		return nil, err
 	}
 
-	if inCI && strings.Contains(v.Version, "-dirty") {
+	if inCI && strings.Contains(version.Version, "-dirty") {
 		return nil, errors.New("dirty build not allowed in CI")
 	}
+
+	c.Version = version.Version
 
 	return c, nil
 }
@@ -93,6 +96,7 @@ type project struct {
 	opt        option
 	sourceRoot string
 	instance   *build.Instance
+	plan.Meta
 }
 
 func (c *project) Run(ctx context.Context, action ...string) error {
@@ -105,11 +109,14 @@ func (c *project) Run(ctx context.Context, action ...string) error {
 	workdir := plan.NewWorkdir(c.sourceRoot, "")
 	registryAuthStore := plan.NewRegistryAuthStore()
 
+	logr.FromContext(ctx).WithValues("version", c.Version).Info("Running")
+
 	runner := plan.NewRunner(cueValue, c.opt.output, &core.FS{}, &core.Image{})
 
 	ctx = plan.TaskRunnerFactoryContext.Inject(ctx, core.DefaultFactory)
 	ctx = plan.WorkdirContext.Inject(ctx, workdir)
 	ctx = plan.RegistryAuthStoreContext.Inject(ctx, registryAuthStore)
+	ctx = plan.MetaContext.Inject(ctx, c.Meta)
 
 	return runner.Run(ctx, action)
 }
