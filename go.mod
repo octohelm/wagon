@@ -26,7 +26,7 @@ require (
 	github.com/innoai-tech/infra v0.0.0-20230809024609-b28415b90502
 	github.com/mattn/go-colorable v0.1.13
 	github.com/octohelm/courier v0.0.0-20230809023744-57fc047576ed
-	github.com/octohelm/cuemod v0.8.1
+	github.com/octohelm/cuemod v0.8.2
 	github.com/octohelm/gengo v0.0.0-20230809023313-1339e47458a4
 	github.com/octohelm/storage v0.0.0-20230809023612-f4199ff2c708
 	github.com/octohelm/x v0.0.0-20230809025256-29102caf446f

@@ -331,8 +331,8 @@ github.com/muesli/termenv v0.15.2/go.mod h1:Epx+iuz8sNs7mNKhxzH4fWXGNpZwUaJKRS1n
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/octohelm/courier v0.0.0-20230809023744-57fc047576ed h1:1KD96DdeenVneridbsO2aqsMkOg7MFg3zLmejBcOzWc=
 github.com/octohelm/courier v0.0.0-20230809023744-57fc047576ed/go.mod h1:KpswGpveCA40rhieNtbGMm95iqxzbsv9Ir7gcgIb09E=
-github.com/octohelm/cuemod v0.8.1 h1:q8EoSEOGqbmQKK4MU62u8ZWzmfxS54v99YdK0MSckUY=
-github.com/octohelm/cuemod v0.8.1/go.mod h1:0I0JVSoyc4unr0TMl0PHsgfdlBkEdJUiYkg75AicgUQ=
+github.com/octohelm/cuemod v0.8.2 h1:cyv6FteVf/oOz0q1s62v90vzrL88p/90/ZWPb6qK168=
+github.com/octohelm/cuemod v0.8.2/go.mod h1:0I0JVSoyc4unr0TMl0PHsgfdlBkEdJUiYkg75AicgUQ=
 github.com/octohelm/gengo v0.0.0-20230809023313-1339e47458a4 h1:wmmT8Xn6kUwKhzJva3JlFRPVnCTMrdSyVZTp6K0NAtg=
 github.com/octohelm/gengo v0.0.0-20230809023313-1339e47458a4/go.mod h1:FmonJDnRb/0KoFSDB/OgptioHK/RBm820MJ7cjeIMaE=
 github.com/octohelm/storage v0.0.0-20230809023612-f4199ff2c708 h1:WDFBhyHy1uhyX2EfDzG5mC43/oKhCbGr5/AMLQGeRs0=
