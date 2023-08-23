@@ -191,14 +191,16 @@ func (r *Runner) runTaskFunc(taskRunnerFactory TaskRunnerFactory, shouldRun func
 
 			displayName := fmt.Sprintf("%s #%s", p, tk.Name())
 
-			c := t.Context()
+			ctx := t.Context()
 
-			c = daggerutil.ClientContext.Inject(
-				c,
-				daggerutil.ClientContext.From(c).Pipeline(displayName),
+			ctx = logr.WithLogger(ctx, logr.FromContext(ctx).WithValues("task", displayName))
+
+			ctx = daggerutil.ClientContext.Inject(
+				ctx,
+				daggerutil.ClientContext.From(ctx).Pipeline(displayName),
 			)
 
-			if err := tr.Run(c); err != nil {
+			if err := tr.Run(ctx); err != nil {
 				return cueerrors.Wrapf(err, tk.Pos(), "exec task failed")
 			}
 
