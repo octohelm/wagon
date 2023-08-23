@@ -75,3 +75,33 @@ func (s StringOrBool) MarshalJSON() ([]byte, error) {
 	}
 	return []byte(strconv.Quote(s.String)), nil
 }
+
+type StringOrSlice struct {
+	Values []string
+}
+
+func (StringOrSlice) OneOf() []any {
+	return []any{
+		"",
+		[]string{},
+	}
+}
+
+func (s *StringOrSlice) UnmarshalJSON(data []byte) error {
+	if len(data) > 0 && data[0] == '"' {
+		b := ""
+		if err := json.Unmarshal(data, &b); err != nil {
+			return err
+		}
+		s.Values = []string{b}
+		return nil
+	}
+	return json.Unmarshal(data, &s.Values)
+}
+
+func (s StringOrSlice) MarshalJSON() ([]byte, error) {
+	if len(s.Values) == 1 {
+		return []byte(s.Values[0]), nil
+	}
+	return json.Marshal(s.Values)
+}

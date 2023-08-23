@@ -2,7 +2,6 @@ package task
 
 import (
 	"context"
-
 	"dagger.io/dagger"
 	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
@@ -17,8 +16,8 @@ type Mkdir struct {
 
 	Input core.FS `json:"input"`
 
-	Path        string `json:"path"`
-	Permissions int    `json:"permissions" default:"0o755"`
+	Path        core.StringOrSlice `json:"path"`
+	Permissions int                `json:"permissions" default:"0o755"`
 
 	Output core.FS `json:"-" wagon:"generated,name=output"`
 }
@@ -29,11 +28,15 @@ func (e *Mkdir) Do(ctx context.Context) error {
 			ID: e.Input.DirectoryID(),
 		})
 
-		newDir := dir.WithNewDirectory(
-			e.Path, dagger.DirectoryWithNewDirectoryOpts{
-				Permissions: e.Permissions,
-			})
+		for _, p := range e.Path.Values {
+			dir = dir.WithNewDirectory(
+				p,
+				dagger.DirectoryWithNewDirectoryOpts{
+					Permissions: e.Permissions,
+				},
+			)
+		}
 
-		return e.Output.SetDirectoryIDBy(ctx, newDir)
+		return e.Output.SetDirectoryIDBy(ctx, dir)
 	})
 }
