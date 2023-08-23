@@ -26,6 +26,7 @@ func (e *Merge) Do(ctx context.Context) error {
 
 		for i := range e.Inputs {
 			x := e.Inputs[i]
+
 			d = d.WithDirectory("/", c.Directory(dagger.DirectoryOpts{
 				ID: x.DirectoryID(),
 			}))

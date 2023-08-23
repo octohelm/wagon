@@ -79,6 +79,7 @@ actions: go: golang.#Project & {
 					"""
 			},
 		]
+
 		config: {
 			entrypoint: ["/bin/sh"]
 		}
