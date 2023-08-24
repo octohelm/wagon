@@ -11,20 +11,23 @@ import (
 )
 
 func init() {
-	core.DefaultFactory.Register(&FileList{})
+	core.DefaultFactory.Register(&Entries{})
 }
 
-type FileList struct {
+type Entries struct {
 	core.Task
 
-	Input  core.FS  `json:"input"`
-	Depth  int      `json:"depth" default:"-1"`
+	Input core.FS `json:"input"`
+
+	Depth int `json:"depth" default:"-1"`
+
+	// list of files and directories (ends with /) at the given path.
 	Output []string `json:"-" wagon:"generated,name=output"`
 }
 
-func (e *FileList) Do(ctx context.Context) error {
+func (e *Entries) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		fw := &fileWalker{
+		fw := &entriesWalker{
 			d: c.Directory(dagger.DirectoryOpts{
 				ID: e.Input.DirectoryID(),
 			}),
@@ -42,12 +45,12 @@ func (e *FileList) Do(ctx context.Context) error {
 	})
 }
 
-type fileWalker struct {
+type entriesWalker struct {
 	d        *dagger.Directory
 	maxDepth int
 }
 
-func (w *fileWalker) walk(ctx context.Context, path string, walkFunc func(path string) error) error {
+func (w *entriesWalker) walk(ctx context.Context, path string, walkFunc func(path string) error) error {
 	if path == "" {
 		path = "/"
 	}
