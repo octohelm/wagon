@@ -219,6 +219,8 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 
 	r.target = cue.ParsePath(strings.Join(actions, "."))
 
+	logr.FromContext(ctx).Info("Resolving Tasks")
+
 	f := flow.New(
 		&flow.Config{
 			FindHiddenTasks: true,
@@ -230,6 +232,8 @@ func (r *Runner) Run(ctx context.Context, action []string) error {
 	if err := r.prepareTasks(ctx, f.Tasks()); err != nil {
 		return err
 	}
+
+	logr.FromContext(ctx).Info("Running")
 
 	return daggerutil.ConnectDo(ctx, func(ctx context.Context) error {
 		preparedCueValue, err := r.exec(ctx, cueValue, func(p cue.Path) bool {

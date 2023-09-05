@@ -109,7 +109,7 @@ func (c *project) Run(ctx context.Context, action ...string) error {
 	workdir := plan.NewWorkdir(c.sourceRoot, "")
 	registryAuthStore := plan.NewRegistryAuthStore()
 
-	logr.FromContext(ctx).WithValues("version", c.Version).Info("Running")
+	l := logr.FromContext(ctx)
 
 	runner := plan.NewRunner(cueValue, c.opt.output, &core.FS{}, &core.Image{})
 
@@ -117,6 +117,7 @@ func (c *project) Run(ctx context.Context, action ...string) error {
 	ctx = plan.WorkdirContext.Inject(ctx, workdir)
 	ctx = plan.RegistryAuthStoreContext.Inject(ctx, registryAuthStore)
 	ctx = plan.MetaContext.Inject(ctx, c.Meta)
+	ctx = logr.WithLogger(ctx, l.WithValues("version", c.Version))
 
 	return runner.Run(ctx, action)
 }

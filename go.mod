@@ -21,7 +21,6 @@ require (
 	cuelang.org/go v0.6.0
 	dagger.io/dagger v0.8.4
 	github.com/dagger/dagger v0.8.4
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/go-courier/logr v0.3.0
 	github.com/innoai-tech/infra v0.0.0-20230809024609-b28415b90502
 	github.com/mattn/go-colorable v0.1.13
