@@ -31,6 +31,17 @@ func (cp *Copy) Do(ctx context.Context) error {
 		})
 
 		if source := cp.Source; source != "/" {
+			// When file exists
+			if f, err := contents.File(source).Sync(ctx); err == nil {
+				out := c.
+					Directory(dagger.DirectoryOpts{
+						ID: cp.Input.DirectoryID(),
+					}).
+					WithFile(cp.Dest, f)
+
+				return cp.Output.SetDirectoryIDBy(ctx, out)
+			}
+
 			contents = contents.Directory(source)
 		}
 
