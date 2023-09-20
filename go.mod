@@ -19,8 +19,8 @@ replace (
 
 require (
 	cuelang.org/go v0.6.0
-	dagger.io/dagger v0.8.4
-	github.com/dagger/dagger v0.8.4
+	dagger.io/dagger v0.8.7
+	github.com/dagger/dagger v0.8.7
 	github.com/go-courier/logr v0.3.0
 	github.com/innoai-tech/infra v0.0.0-20230809024609-b28415b90502
 	github.com/mattn/go-colorable v0.1.13
@@ -32,10 +32,12 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.9.5
-	github.com/vito/progrock v0.9.1-0.20230815145556-518f2dcd6e2f
+	github.com/vito/progrock v0.10.0
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63
 	golang.org/x/net v0.14.0
 )
+
+require github.com/vito/midterm v0.1.4 // indirect
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
@@ -50,7 +52,7 @@ require (
 	github.com/charmbracelet/bubbles v0.16.1 // indirect
 	github.com/charmbracelet/bubbletea v0.24.2 // indirect
 	github.com/charmbracelet/harmonica v0.2.0 // indirect
-	github.com/charmbracelet/lipgloss v0.7.1 // indirect
+	github.com/charmbracelet/lipgloss v0.8.0 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/cockroachdb/apd/v3 v3.2.0 // indirect
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
@@ -60,7 +62,7 @@ require (
 	github.com/containerd/typeurl/v2 v2.1.1 // indirect
 	github.com/docker/cli v24.0.5+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
-	github.com/docker/docker v24.0.5+incompatible // indirect
+	github.com/docker/docker v24.0.0+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.8.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/emicklei/proto v1.12.1 // indirect
@@ -127,7 +129,6 @@ require (
 	github.com/tonistiigi/vt100 v0.0.0-20230623042737-f9a4f7ef6531 // indirect
 	github.com/vbatts/tar-split v0.11.5 // indirect
 	github.com/vektah/gqlparser/v2 v2.5.8 // indirect
-	github.com/vito/vt100 v0.1.2 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zmb3/spotify/v2 v2.3.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.40.0 // indirect
@@ -144,7 +145,7 @@ require (
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/oauth2 v0.11.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.11.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/term v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
