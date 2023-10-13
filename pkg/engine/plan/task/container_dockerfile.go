@@ -50,9 +50,15 @@ func (input *Dockerfile) Do(ctx context.Context) error {
 		}
 
 		for buildArg := range input.BuildArg {
+			buildArgValue := input.BuildArg[buildArg]
+
+			if buildArgValue == "" {
+				continue
+			}
+
 			buildOpts.BuildArgs = append(buildOpts.BuildArgs, dagger.BuildArg{
 				Name:  buildArg,
-				Value: input.BuildArg[buildArg],
+				Value: buildArgValue,
 			})
 		}
 
