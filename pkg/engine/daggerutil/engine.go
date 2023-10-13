@@ -2,12 +2,12 @@ package daggerutil
 
 import (
 	"fmt"
-	"github.com/dagger/dagger/engine"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"runtime/debug"
 
+	"github.com/dagger/dagger/engine"
 	"github.com/dagger/dagger/engine/client"
 	"github.com/go-courier/logr"
 	"github.com/vito/progrock/console"
@@ -75,7 +75,6 @@ func ConnectEngine(ctx context.Context, optFns ...EngineOptionFunc) (DirectConn,
 	params.ProgrockWriter = console.NewWriter(
 		os.Stdout,
 		console.ShowInternal(InternalDebugFromContext(ctx)),
-		console.WithUI(console.DefaultUI),
 	)
 
 	params.EngineNameCallback = func(name string) {
