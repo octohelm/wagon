@@ -7,7 +7,6 @@ import (
 	"io/fs"
 
 	"github.com/octohelm/cuemod/pkg/cuemod/stdlib"
-	"github.com/octohelm/wagon/internal/version"
 	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
 	"github.com/octohelm/wagon/pkg/fsutil"
 	"github.com/spf13/afero"
@@ -29,8 +28,9 @@ func RegistryCueStdlibs() error {
 		return err
 	}
 
-	if err := registerStdlib(wagonModule, version.Version(), WagonModule, DaggerModule, DaggerUniverseModule); err != nil {
-		return nil
+	// ugly lock embed version
+	if err := registerStdlib(wagonModule, "v0.0.0", WagonModule, DaggerModule, DaggerUniverseModule); err != nil {
+		return err
 	}
 
 	return nil
