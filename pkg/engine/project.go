@@ -80,7 +80,7 @@ func New(ctx context.Context, opts ...OptFunc) (Project, error) {
 
 	version, err := gomod.LocalRevInfo(cwd)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "local rev failed")
 	}
 
 	if inCI && strings.Contains(version.Version, "-dirty") {

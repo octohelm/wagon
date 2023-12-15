@@ -43,11 +43,11 @@ var engineVersion = func() string {
 		for _, dep := range bi.Deps {
 			if dep.Path == "github.com/dagger/dagger" {
 				engine.Version = dep.Version
-				return dep.Version
+				return engine.Version
 			}
 		}
 	}
-	return ""
+	return engine.Version
 }()
 
 var DefaultRunnerHost = fmt.Sprintf("docker-image://ghcr.io/dagger/engine:%s", engineVersion)
