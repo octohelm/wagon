@@ -50,7 +50,7 @@ func (e *Run) Do(ctx context.Context) error {
 
 		for k := range e.Env {
 			if envVar := e.Env[k]; envVar.Secret != nil {
-				ct = ct.WithSecretVariable(k, c.Secret(envVar.Secret.SecretID()))
+				ct = ct.WithSecretVariable(k, c.LoadSecretFromID(envVar.Secret.SecretID()))
 			} else {
 				ct = ct.WithEnvVariable(k, envVar.Value)
 			}

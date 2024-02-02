@@ -43,7 +43,7 @@ func (r *registryAuthStore) ApplyTo(ctx context.Context, container *dagger.Conta
 
 	r.m.Range(func(key, value any) bool {
 		auth := value.(Auth)
-		container = container.WithRegistryAuth(auth.Address, auth.Username, c.Secret(auth.SecretID))
+		container = container.WithRegistryAuth(auth.Address, auth.Username, c.LoadSecretFromID(auth.SecretID))
 		return true
 	})
 

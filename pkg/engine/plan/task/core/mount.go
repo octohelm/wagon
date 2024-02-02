@@ -155,7 +155,7 @@ type MountSecret struct {
 }
 
 func (m MountSecret) MountTo(client *dagger.Client, container *dagger.Container) *dagger.Container {
-	return container.WithMountedSecret(m.Dest, client.Secret(m.Contents.SecretID()))
+	return container.WithMountedSecret(m.Dest, client.LoadSecretFromID(m.Contents.SecretID()))
 }
 
 func (MountSecret) MountType() string {

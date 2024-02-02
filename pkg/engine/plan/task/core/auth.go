@@ -14,5 +14,5 @@ type Auth struct {
 
 func (a Auth) ApplyTo(ctx context.Context, ct *dagger.Container, address string) *dagger.Container {
 	c := daggerutil.ClientContext.From(ctx)
-	return ct.WithRegistryAuth(address, a.Username, c.Secret(a.Secret.SecretID()))
+	return ct.WithRegistryAuth(address, a.Username, c.LoadSecretFromID(a.Secret.SecretID()))
 }

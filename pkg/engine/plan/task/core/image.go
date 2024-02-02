@@ -74,9 +74,7 @@ func (p ImageConfig) ApplyTo(c *dagger.Container) *dagger.Container {
 	}
 
 	if vv := p.Cmd; len(vv) != 0 {
-		c = c.WithDefaultArgs(dagger.ContainerWithDefaultArgsOpts{
-			Args: vv,
-		})
+		c = c.WithDefaultArgs(vv)
 	}
 
 	return c
