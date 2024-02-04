@@ -1,4 +1,5 @@
 .wagon
 .DS_Store
+.idea/
 
 cue.mod/module.sum
