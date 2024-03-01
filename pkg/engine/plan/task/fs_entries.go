@@ -28,9 +28,7 @@ type Entries struct {
 func (e *Entries) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
 		fw := &entriesWalker{
-			d: c.Directory(dagger.DirectoryOpts{
-				ID: e.Input.DirectoryID(),
-			}),
+			d:        e.Input.Directory(c),
 			maxDepth: e.Depth,
 		}
 

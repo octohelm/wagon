@@ -26,17 +26,12 @@ type Copy struct {
 
 func (cp *Copy) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		contents := c.Directory(dagger.DirectoryOpts{
-			ID: cp.Contents.DirectoryID(),
-		})
+		contents := cp.Contents.Directory(c)
 
 		if source := cp.Source; source != "/" {
 			// When file exists
 			if f, err := contents.File(source).Sync(ctx); err == nil {
-				out := c.
-					Directory(dagger.DirectoryOpts{
-						ID: cp.Input.DirectoryID(),
-					}).
+				out := cp.Input.Directory(c).
 					WithFile(cp.Dest, f)
 
 				return cp.Output.SetDirectoryIDBy(ctx, out)
@@ -45,10 +40,7 @@ func (cp *Copy) Do(ctx context.Context) error {
 			contents = contents.Directory(source)
 		}
 
-		ct := c.
-			Directory(dagger.DirectoryOpts{
-				ID: cp.Input.DirectoryID(),
-			}).
+		ct := cp.Input.Directory(c).
 			WithDirectory(cp.Dest, contents, dagger.DirectoryWithDirectoryOpts{
 				Include: cp.Include,
 				Exclude: cp.Exclude,

@@ -33,9 +33,7 @@ type Dockerfile struct {
 
 func (input *Dockerfile) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		dir := c.Directory(dagger.DirectoryOpts{
-			ID: input.Source.DirectoryID(),
-		})
+		dir := input.Source.Directory(c)
 
 		dockerfilePath := input.Dockerfile.Path
 

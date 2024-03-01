@@ -24,12 +24,8 @@ func (e *Merge) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
 		d := c.Directory()
 
-		for i := range e.Inputs {
-			x := e.Inputs[i]
-
-			d = d.WithDirectory("/", c.Directory(dagger.DirectoryOpts{
-				ID: x.DirectoryID(),
-			}))
+		for _, input := range e.Inputs {
+			d = d.WithDirectory("/", input.Directory(c))
 		}
 
 		return e.Output.SetDirectoryIDBy(ctx, d)

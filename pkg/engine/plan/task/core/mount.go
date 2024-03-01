@@ -116,10 +116,8 @@ type MountFs struct {
 	ReadOnly bool `json:"ro,omitempty" wagon:"deprecated"`
 }
 
-func (f MountFs) MountTo(client *dagger.Client, container *dagger.Container) *dagger.Container {
-	dir := client.Directory(dagger.DirectoryOpts{
-		ID: f.Contents.DirectoryID(),
-	})
+func (f MountFs) MountTo(c *dagger.Client, container *dagger.Container) *dagger.Container {
+	dir := f.Contents.Directory(c)
 
 	if source := f.Source; source != nil {
 		src := *source

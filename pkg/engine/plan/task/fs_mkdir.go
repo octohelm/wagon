@@ -24,9 +24,7 @@ type Mkdir struct {
 
 func (e *Mkdir) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		dir := c.Directory(dagger.DirectoryOpts{
-			ID: e.Input.DirectoryID(),
-		})
+		dir := e.Input.Directory(c)
 
 		for _, p := range e.Path.Values {
 			dir = dir.WithNewDirectory(

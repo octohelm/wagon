@@ -28,9 +28,7 @@ func (img *Image) CanExport() bool {
 
 func (img *Image) ExportTo(ctx context.Context, localPath string) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		rootfs := c.Directory(dagger.DirectoryOpts{
-			ID: img.Rootfs.DirectoryID(),
-		})
+		rootfs := img.Rootfs.Directory(c)
 
 		ct := c.Container(dagger.ContainerOpts{
 			Platform: DefaultPlatform(img.Platform),

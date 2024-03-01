@@ -38,9 +38,7 @@ type Run struct {
 func (e *Run) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
 		ct := c.Container().
-			WithRootfs(c.Directory(dagger.DirectoryOpts{
-				ID: e.Input.DirectoryID(),
-			}))
+			WithRootfs(e.Input.Directory(c))
 
 		ct = e.Config.ApplyTo(ct)
 

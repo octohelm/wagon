@@ -25,9 +25,7 @@ type Rm struct {
 
 func (e *Rm) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		dir := c.Directory(dagger.DirectoryOpts{
-			ID: e.Input.DirectoryID(),
-		})
+		dir := e.Input.Directory(c)
 
 		newDir := dir.WithoutDirectory(e.Path)
 

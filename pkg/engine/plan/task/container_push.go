@@ -78,9 +78,7 @@ func (input *PushImage) Do(ctx context.Context) error {
 			return errors.Errorf("missing fs")
 		}
 
-		dir := c.Directory(dagger.DirectoryOpts{
-			ID: id,
-		})
+		dir := c.LoadDirectoryFromID(id)
 
 		ctr := input.Config.ApplyTo(c.Container(dagger.ContainerOpts{
 			Platform: dagger.Platform(input.Platform),
@@ -142,9 +140,7 @@ func (input *PushManifests) Do(ctx context.Context) error {
 				return errors.Errorf("missing fs for %s", platform)
 			}
 
-			dir := c.Directory(dagger.DirectoryOpts{
-				ID: id,
-			})
+			dir := c.LoadDirectoryFromID(id)
 
 			ctr := img.Config.ApplyTo(c.Container(dagger.ContainerOpts{Platform: dagger.Platform(platform)}).WithRootfs(dir))
 
