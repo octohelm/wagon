@@ -50,7 +50,7 @@ func (fs *FS) DirectoryID() dagger.DirectoryID {
 	return ""
 }
 
-func (fs *FS) Directory(c *dagger.Client) *dagger.Directory {
+func (fs *FS) LoadDirectory(c *dagger.Client) *dagger.Directory {
 	if id := fs.DirectoryID(); id != "" {
 		return c.LoadDirectoryFromID(id)
 	}
@@ -67,7 +67,7 @@ func (f *FS) CanExport() bool {
 
 func (f *FS) ExportTo(ctx context.Context, localPath string) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		_, err := f.Directory(c).Export(ctx, localPath)
+		_, err := f.LoadDirectory(c).Export(ctx, localPath)
 		return err
 	})
 }

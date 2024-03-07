@@ -5,6 +5,7 @@ import (
 	"dagger.io/dagger"
 	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"github.com/octohelm/wagon/pkg/engine/plan/task/core"
+	"strings"
 )
 
 func init() {
@@ -26,22 +27,24 @@ type Copy struct {
 
 func (cp *Copy) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		contents := cp.Contents.Directory(c)
+		contents := cp.Contents.LoadDirectory(c)
 
-		if source := cp.Source; source != "/" {
-			// When file exists
-			if f, err := contents.File(source).Sync(ctx); err == nil {
-				out := cp.Input.Directory(c).
-					WithFile(cp.Dest, f)
-
-				return cp.Output.SetDirectoryIDBy(ctx, out)
+		src, err := contents.Directory(cp.Source).Sync(ctx)
+		if err != nil {
+			// path /dist/txt is a file, not a directory
+			if !strings.Contains(err.Error(), "not a directory") {
+				return err
 			}
-
-			contents = contents.Directory(source)
+			// try copy file
+			f, err := contents.File(cp.Source).Sync(ctx)
+			if err != nil {
+				return err
+			}
+			return cp.Output.SetDirectoryIDBy(ctx, cp.Input.LoadDirectory(c).WithFile(cp.Dest, f))
 		}
 
-		ct := cp.Input.Directory(c).
-			WithDirectory(cp.Dest, contents, dagger.DirectoryWithDirectoryOpts{
+		ct := cp.Input.LoadDirectory(c).
+			WithDirectory(cp.Dest, src, dagger.DirectoryWithDirectoryOpts{
 				Include: cp.Include,
 				Exclude: cp.Exclude,
 			})

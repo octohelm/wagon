@@ -29,7 +29,7 @@ type Exec struct {
 
 func (e *Exec) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		ct := c.Container().WithRootfs(e.Input.Directory(c))
+		ct := c.Container().WithRootfs(e.Input.LoadDirectory(c))
 
 		if workdir := e.Workdir; workdir != "" {
 			ct = ct.WithWorkdir(workdir)

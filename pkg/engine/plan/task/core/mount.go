@@ -117,7 +117,7 @@ type MountFs struct {
 }
 
 func (f MountFs) MountTo(c *dagger.Client, container *dagger.Container) *dagger.Container {
-	dir := f.Contents.Directory(c)
+	dir := f.Contents.LoadDirectory(c)
 
 	if source := f.Source; source != nil {
 		src := *source

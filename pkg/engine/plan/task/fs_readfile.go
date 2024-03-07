@@ -21,7 +21,7 @@ type ReadFile struct {
 
 func (e *ReadFile) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		dir := e.Input.Directory(c)
+		dir := e.Input.LoadDirectory(c)
 
 		f := dir.File(e.Path)
 

@@ -2,6 +2,7 @@ package daggerutil
 
 import (
 	"fmt"
+	"github.com/vektah/gqlparser/v2/gqlerror"
 	"os"
 	"testing"
 	"time"
@@ -20,14 +21,14 @@ func TestDebugDagger(t *testing.T) {
 		t.Skip()
 	}
 
-	t.Run(fmt.Sprintf("With "), func(t *testing.T) {
+	t.Run(fmt.Sprintf("With"), func(t *testing.T) {
 		_ = os.Chdir("../../..")
 
 		ctx := logr.WithLogger(context.Background(), slog.Logger(slog.Default()))
 
 		engineConn, release, _ := ConnectEngine(
 			ctx,
-			WithRunnerHost(runnerHost),
+			WithRunnerHost(""),
 		)
 		defer release()
 
@@ -52,12 +53,10 @@ func TestDebugDagger(t *testing.T) {
 
 		id, err := dir.ID(ctx)
 		if err != nil {
-			panic(err)
+			panic(gqlerror.List{})
 		}
 
-		c2 := cc.Container().WithRootfs(cc.Directory(dagger.DirectoryOpts{
-			ID: id,
-		}))
+		c2 := cc.Container().WithRootfs(cc.LoadDirectoryFromID(id))
 
 		// #Copy fs to local
 		_, err = c2.Directory("/dist").Export(ctx, ".wagon/demo")

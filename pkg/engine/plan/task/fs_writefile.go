@@ -26,7 +26,7 @@ type WriteFile struct {
 
 func (e *WriteFile) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		dir := e.Input.Directory(c).WithNewFile(e.Path, e.Contents, dagger.DirectoryWithNewFileOpts{
+		dir := e.Input.LoadDirectory(c).WithNewFile(e.Path, e.Contents, dagger.DirectoryWithNewFileOpts{
 			Permissions: e.Permissions,
 		})
 		return e.Output.SetDirectoryIDBy(ctx, dir)

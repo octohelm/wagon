@@ -25,7 +25,7 @@ func (e *Merge) Do(ctx context.Context) error {
 		d := c.Directory()
 
 		for _, input := range e.Inputs {
-			d = d.WithDirectory("/", input.Directory(c))
+			d = d.WithDirectory("/", input.LoadDirectory(c))
 		}
 
 		return e.Output.SetDirectoryIDBy(ctx, d)

@@ -23,8 +23,8 @@ type Diff struct {
 
 func (e *Diff) Do(ctx context.Context) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		upper := e.Upper.Directory(c)
-		lower := e.Lower.Directory(c)
+		upper := e.Upper.LoadDirectory(c)
+		lower := e.Lower.LoadDirectory(c)
 		return e.Output.SetDirectoryIDBy(ctx, lower.Diff(upper))
 	})
 }

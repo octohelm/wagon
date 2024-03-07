@@ -6,26 +6,14 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/pkg/errors"
-
 	"dagger.io/dagger"
-	"github.com/octohelm/wagon/pkg/ctxutil"
+	contextx "github.com/octohelm/x/context"
 	"golang.org/x/net/context"
 )
 
-var ClientContext = ctxutil.New[*dagger.Client]()
+var ClientContext = contextx.New[*dagger.Client]()
 
 func Do(ctx context.Context, do func(c *dagger.Client) error) (e error) {
-	defer func() {
-		if r := recover(); r != nil {
-			switch x := r.(type) {
-			case error:
-				e = x
-			default:
-				e = errors.Errorf("%v", x)
-			}
-		}
-	}()
 	return do(ClientContext.From(ctx))
 }
 
@@ -42,19 +30,22 @@ func ConnectDo(ctx context.Context, do func(ctx context.Context) error) error {
 	if err != nil {
 		return err
 	}
-	defer release()
+	defer func() {
+		_ = release()
+	}()
 
 	c, err := dagger.Connect(ctx, dagger.WithConn(engineConn))
 	if err != nil {
 		return err
 	}
-	defer c.Close()
+	defer func() {
+		_ = c.Close()
+	}()
 
 	signalCh := make(chan os.Signal, 1)
 	signal.Notify(signalCh, syscall.SIGINT, syscall.SIGTERM)
 
 	newCtx, cancel := context.WithCancel(ctx)
-
 	go func() {
 		<-signalCh
 		cancel()

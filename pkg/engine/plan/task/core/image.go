@@ -1,9 +1,8 @@
 package core
 
 import (
-	"fmt"
-
 	"dagger.io/dagger"
+	"fmt"
 	"github.com/octohelm/wagon/pkg/engine/daggerutil"
 	"golang.org/x/net/context"
 )
@@ -28,7 +27,7 @@ func (img *Image) CanExport() bool {
 
 func (img *Image) ExportTo(ctx context.Context, localPath string) error {
 	return daggerutil.Do(ctx, func(c *dagger.Client) error {
-		rootfs := img.Rootfs.Directory(c)
+		rootfs := img.Rootfs.LoadDirectory(c)
 
 		ct := c.Container(dagger.ContainerOpts{
 			Platform: DefaultPlatform(img.Platform),
@@ -112,7 +111,7 @@ func (p *ImageConfig) Resolve(ctx context.Context, c *dagger.Client, id dagger.C
 		Container daggerutil.Container
 	}{}
 
-	err := daggerutil.NewQueryClient(c).Query(ctx, &ret, fmt.Sprintf(`
+	err := daggerutil.Query(ctx, c, &ret, fmt.Sprintf(`
 query { 
     container(id: %q) {
 		id

@@ -58,6 +58,8 @@ actions: go: golang.#Project & {
 		]
 	}
 
+	archive: archive: true
+
 	ship: {
 		name: "\(strings.Replace(go.module, "github.com/", "ghcr.io/", -1))/\(go.binary)"
 
