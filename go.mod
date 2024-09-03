@@ -1,6 +1,6 @@
 module github.com/octohelm/wagon
 
-go 1.22
+go 1.23
 
 replace (
 	// follow from dagger
